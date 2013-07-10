@@ -1,0 +1,29 @@
+#
+#    Dressing Room Functions - Allows undress and target model for dressing room
+#    Copyright (C) 2013  Rachael Alexanderson
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+## Interface: 50400
+## Title: DressingRoomFunctions
+## Notes: This addon allows you to remove clothing from your dressing room character (useful for previewing shirts and pants under a robe) or switch to a target model (useful for seeing a character through druid forms). These functions are part of the Blizzard API but rarely used, but can be extremely useful depending on the situation.
+## Author: Allikitten
+## Version: v0.0
+## SavedVariables: 
+## SavedVariablesPerCharacter: 
+## X-eMail: allikitten@sisterhoodmg.info
+
+#core
+DressingRoomFunctions.lua
