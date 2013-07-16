@@ -95,6 +95,7 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 	local info = UIDropDownMenu_CreateInfo()
 	if level == 1 then
 		info.checked = false;
+		info.notCheckable = true;
 		info.text = "Male";
 		info.menuList, info.hasArrow = 0, true;
 		UIDropDownMenu_AddButton(info, level);
@@ -103,6 +104,7 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		UIDropDownMenu_AddButton(info, level);
 	else
 		info.checked = false;
+		info.notCheckable = true;
 		info.func = DRF_menu1_OnClick;
 		info.arg2 = menuList;
 		info.text, info.arg1 = "Human", 1;
