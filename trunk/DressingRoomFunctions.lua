@@ -82,10 +82,13 @@ local function DRF_SetArbitraryRace(id,gender)
 	-- This chosen helmet is somewhat invisible, it's a holiday reward from
 	-- the midsummer fire festival.
 	DressUpModel:TryOn(23323);
+	DressUpModel:UndressSlot(1);
+	Model_Reset(DressUpModel);
 end
 
 local function DRF_menu1_OnClick(self, arg1, arg2, checked)
 	DRF_SetArbitraryRace(arg1,arg2);
+	Model_Reset(DressUpModel);
 	CloseDropDownMenus();
 end
 
@@ -93,10 +96,17 @@ DRF_menu1:SetPoint("CENTER");
 --UIDropDownMenu_SetWidth(DRF_menu1, 200);
 --UIDropDownMenu_SetText(DRF_menu1, "Select Race/Gender:");
 UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
-	local info = UIDropDownMenu_CreateInfo()
+	local info = UIDropDownMenu_CreateInfo();
 	if level == 1 then
 		info.checked = false;
 		info.notCheckable = true;
+
+		info.text, info.isTitle = "- Gender -", true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.checked = false;
+		info.notCheckable = true;
+
 		info.text = "Male";
 		info.menuList, info.hasArrow = 0, true;
 		UIDropDownMenu_AddButton(info, level);
@@ -104,23 +114,42 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.menuList, info.hasArrow = 1, true;
 		UIDropDownMenu_AddButton(info, level);
 	else
-		info.checked = false;
 		info.notCheckable = true;
 		info.func = DRF_menu1_OnClick;
 		info.arg2 = menuList;
-		info.text, info.arg1 = "Human", 1;
+
+		info.text, info.isTitle = "- Alliance -", true;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Orc", 2;
+		info = UIDropDownMenu_CreateInfo();
+		info.notCheckable = true;
+		info.func = DRF_menu1_OnClick;
+		info.arg2 = menuList;
+
+		info.text, info.arg1 = "Human", 1;
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = "Dwarf", 3;
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = "Night Elf", 4;
 		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Gnome", 7;
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Draenei", 11;
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Worgen", 22;
+		UIDropDownMenu_AddButton(info, level);
+
+		info.text, info.isTitle = "- Horde -", true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.notCheckable = true;
+		info.func = DRF_menu1_OnClick;
+		info.arg2 = menuList;
+
+		info.text, info.arg1 = "Orc", 2;
+		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = "Undead", 5;
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = "Tauren", 6;
-		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Gnome", 7;
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = "Troll", 8;
 		UIDropDownMenu_AddButton(info, level);
@@ -128,10 +157,14 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = "Blood Elf", 10;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Draenei", 11;
+
+		info.text, info.isTitle = "- Neutral -", true;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Worgen", 22;
-		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.notCheckable = true;
+		info.func = DRF_menu1_OnClick;
+		info.arg2 = menuList;
+
 		info.text, info.arg1 = "Pandaren", 24;
 		UIDropDownMenu_AddButton(info, level);
 	end
@@ -142,6 +175,8 @@ DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 
 	DressUpModel:SetUnit("player");
 	DressUpModel:Dress();
+	Model_Reset(DressUpModel);
+
 	SetDressUpBackground(DressUpFrame, fileName);
 	PlaySound("gsTitleOptionOK");
 end);
