@@ -20,7 +20,7 @@
 ## Title: DressingRoomFunctions
 ## Notes: This addon allows you to remove clothing from your dressing room character (useful for previewing shirts and pants under a robe) or switch to a target model (useful for seeing a character through druid forms). These functions are part of the Blizzard API but rarely used, but can be extremely useful depending on the situation.
 ## Author: Allikitten
-## Version: v0.1
+## Version: v0.2
 ## SavedVariables: 
 ## SavedVariablesPerCharacter: 
 ## X-eMail: allikitten@sisterhoodmg.info

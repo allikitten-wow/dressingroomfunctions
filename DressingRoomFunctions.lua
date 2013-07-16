@@ -85,7 +85,8 @@ local function DRF_SetArbitraryRace(id,gender)
 end
 
 local function DRF_menu1_OnClick(self, arg1, arg2, checked)
-	DRF_SetArbitraryRace(arg1,arg2);	
+	DRF_SetArbitraryRace(arg1,arg2);
+	CloseDropDownMenus();
 end
 
 DRF_menu1:SetPoint("CENTER");
