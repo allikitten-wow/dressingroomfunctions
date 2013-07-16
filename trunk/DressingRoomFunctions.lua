@@ -61,10 +61,14 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 	if ( UnitIsPlayer("target") ) then
 		DressUpModel:SetUnit("target");
 		SetDressUpBackground(DressUpFrame, fileName);
+		DressUpModel:SetPortraitZoom(0.8);
+		Model_Reset(DressUpModel);
 	else
 		race, fileName = UnitRace("player");
 		DressUpModel:SetUnit("player");
 		SetDressUpBackground(DressUpFrame, fileName);
+		DressUpModel:SetPortraitZoom(0.8);
+		Model_Reset(DressUpModel);
 	end
 	PlaySound("gsTitleOptionOK");
 end);
@@ -83,12 +87,12 @@ local function DRF_SetArbitraryRace(id,gender)
 	-- the midsummer fire festival.
 	DressUpModel:TryOn(23323);
 	DressUpModel:UndressSlot(1);
+	DressUpModel:SetPortraitZoom(0.8);
 	Model_Reset(DressUpModel);
 end
 
 local function DRF_menu1_OnClick(self, arg1, arg2, checked)
 	DRF_SetArbitraryRace(arg1,arg2);
-	Model_Reset(DressUpModel);
 	CloseDropDownMenus();
 end
 
@@ -175,6 +179,7 @@ DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 
 	DressUpModel:SetUnit("player");
 	DressUpModel:Dress();
+	DressUpModel:SetPortraitZoom(0.8);
 	Model_Reset(DressUpModel);
 
 	SetDressUpBackground(DressUpFrame, fileName);
