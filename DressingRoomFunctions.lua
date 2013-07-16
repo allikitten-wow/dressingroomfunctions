@@ -79,16 +79,17 @@ DRF_button3.text = _G["DRF_RaceButton"];
 DRF_button3.text:SetText("...");
 
 local function DRF_SetArbitraryRace(id,gender)
-	DressUpModel:SetCustomRace(id,gender);
+	if ( gender == 0 or gender == 1 ) then
+		DressUpModel:SetCustomRace(id,gender);
+		-- Puts a helmet on the character, to fix a bug using hidden helmets.
+		-- This chosen helmet is somewhat invisible, it's a holiday reward from
+		-- the midsummer fire festival.
+		DressUpModel:TryOn(23323);
+		DressUpModel:UndressSlot(1);
+		DressUpModel:SetPortraitZoom(0.8);
+		Model_Reset(DressUpModel);
+	end
 	SetDressUpBackground(DressUpFrame, _backgroundList[id]);
-
-	-- Puts a helmet on the character, to fix a bug using hidden helmets.
-	-- This chosen helmet is somewhat invisible, it's a holiday reward from
-	-- the midsummer fire festival.
-	DressUpModel:TryOn(23323);
-	DressUpModel:UndressSlot(1);
-	DressUpModel:SetPortraitZoom(0.8);
-	Model_Reset(DressUpModel);
 end
 
 local function DRF_menu1_OnClick(self, arg1, arg2, checked)
@@ -105,7 +106,7 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.checked = false;
 		info.notCheckable = true;
 
-		info.text, info.isTitle = "- Gender -", true;
+		info.hasArrow, info.text, info.isTitle = false, "- Gender -", true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.checked = false;
@@ -116,6 +117,16 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		UIDropDownMenu_AddButton(info, level);
 		info.text = "Female";
 		info.menuList, info.hasArrow = 1, true;
+		UIDropDownMenu_AddButton(info, level);
+
+		info.hasArrow, info.text, info.isTitle = false, "- Other -", true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.checked = false;
+		info.notCheckable = true;
+
+		info.text = "Background";
+		info.menuList, info.hasArrow = 2, true;
 		UIDropDownMenu_AddButton(info, level);
 	else
 		info.notCheckable = true;
