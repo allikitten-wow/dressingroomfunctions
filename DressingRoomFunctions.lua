@@ -34,7 +34,14 @@ local _backgroundList = {
 	[24] = "Pandaren"
 };
 
+-- _raceList is the content-reference table for the background list.
+local _raceList = { };
+for x, name in ipairs(_backgroundList) do
+	_raceList[name] = x;
+end
+
 DRF_Version = GetAddOnMetadata("DressingRoomFunctions","Version");
+DRF_DebugMode = false;
 
 local DRF_button1 = CreateFrame("Button","DRF_UndressButton",DressUpFrame,"UIPanelButtonTemplate");
 local DRF_button2 = CreateFrame("Button","DRF_TargetButton",DressUpFrame,"UIPanelButtonTemplate");
@@ -61,14 +68,18 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 	if ( UnitIsPlayer("target") ) then
 		DressUpModel:SetUnit("target");
 		SetDressUpBackground(DressUpFrame, fileName);
-		DressUpModel:SetPortraitZoom(0.8);
-		Model_Reset(DressUpModel);
+		if ( DRF_DebugMode == false ) then
+			DressUpModel:SetPortraitZoom(0.8);
+			Model_Reset(DressUpModel);
+		end
 	else
 		race, fileName = UnitRace("player");
 		DressUpModel:SetUnit("player");
 		SetDressUpBackground(DressUpFrame, fileName);
-		DressUpModel:SetPortraitZoom(0.8);
-		Model_Reset(DressUpModel);
+		if ( DRF_DebugMode == false ) then
+			DressUpModel:SetPortraitZoom(0.8);
+			Model_Reset(DressUpModel);
+		end
 	end
 	PlaySound("gsTitleOptionOK");
 end);
@@ -84,16 +95,33 @@ local function DRF_SetArbitraryRace(id,gender)
 		-- Puts a helmet on the character, to fix a bug using hidden helmets.
 		-- This chosen helmet is somewhat invisible, it's a holiday reward from
 		-- the midsummer fire festival.
-		DressUpModel:TryOn(23323);
-		DressUpModel:UndressSlot(1);
-		DressUpModel:SetPortraitZoom(0.8);
-		Model_Reset(DressUpModel);
+		if ( DRF_DebugMode == false ) then
+			DressUpModel:TryOn(23323);
+			DressUpModel:UndressSlot(GetInventorySlotInfo("HeadSlot"));
+			DressUpModel:SetPortraitZoom(0.8);
+			Model_Reset(DressUpModel);
+		end
+	elseif ( gender == 3 ) then
+		DressUpModel:SetModel("character\\".._backgroundList[id].."\\male\\".._backgroundList[id].."male.m2");
+	elseif ( gender == 4 ) then
+		DressUpModel:SetModel("character\\".._backgroundList[id].."\\female\\".._backgroundList[id].."female.m2");
 	end
 	SetDressUpBackground(DressUpFrame, _backgroundList[id]);
 end
 
+local function DRF_PerformOtherAction(arg1,arg2)
+	if ( arg1 == 14 ) then
+		DressUpModel:UndressSlot(arg2);
+	end
+end
+
 local function DRF_menu1_OnClick(self, arg1, arg2, checked)
 	DRF_SetArbitraryRace(arg1,arg2);
+	CloseDropDownMenus();
+end
+
+local function DRF_menu2_OnClick(self, arg1, arg2, checked)
+	DRF_PerformOtherAction(arg2,arg1);
 	CloseDropDownMenus();
 end
 
@@ -102,15 +130,14 @@ DRF_menu1:SetPoint("CENTER");
 --UIDropDownMenu_SetText(DRF_menu1, "Select Race/Gender:");
 UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 	local info = UIDropDownMenu_CreateInfo();
+	if menuList == nil then menuList = 0 end
 	if level == 1 then
-		info.checked = false;
-		info.notCheckable = true;
+		info.checked, info.notCheckable = false, true;
 
 		info.hasArrow, info.text, info.isTitle = false, "- Gender -", true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
-		info.checked = false;
-		info.notCheckable = true;
+		info.checked, info.notCheckable = false, true;
 
 		info.text = "Male";
 		info.menuList, info.hasArrow = 0, true;
@@ -122,23 +149,43 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.hasArrow, info.text, info.isTitle = false, "- Other -", true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
-		info.checked = false;
-		info.notCheckable = true;
+		info.checked, info.notCheckable = false, true;
 
 		info.text = "Background";
 		info.menuList, info.hasArrow = 2, true;
 		UIDropDownMenu_AddButton(info, level);
-	else
-		info.notCheckable = true;
-		info.func = DRF_menu1_OnClick;
-		info.arg2 = menuList;
+
+		if ( DRF_DebugMode ) then
+			info.hasArrow, info.text, info.isTitle = false, "- Debug -", true;
+			UIDropDownMenu_AddButton(info, level);
+			info = UIDropDownMenu_CreateInfo();
+			info.checked, info.notCheckable = false, true;
+
+			info.text = "Male Model";
+			info.menuList, info.hasArrow = 3, true;
+			UIDropDownMenu_AddButton(info, level);
+
+			info.text = "Female Model";
+			info.menuList, info.hasArrow = 4, true;
+			UIDropDownMenu_AddButton(info, level);
+		end
+
+		info.hasArrow, info.text, info.isTitle = false, "- Unequip -", true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.checked, info.notCheckable = false, true;
+
+		info.text = "Remove";
+		info.menuList, info.hasArrow = 14, true;
+		UIDropDownMenu_AddButton(info, level);
+
+	elseif ( menuList >= 0 and menuList <= 4 ) then
+		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
 		info.text, info.isTitle = "- Alliance -", true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
-		info.notCheckable = true;
-		info.func = DRF_menu1_OnClick;
-		info.arg2 = menuList;
+		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
 		info.text, info.arg1 = "Human", 1;
 		UIDropDownMenu_AddButton(info, level);
@@ -156,9 +203,7 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.text, info.isTitle = "- Horde -", true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
-		info.notCheckable = true;
-		info.func = DRF_menu1_OnClick;
-		info.arg2 = menuList;
+		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
 		info.text, info.arg1 = "Orc", 2;
 		UIDropDownMenu_AddButton(info, level);
@@ -176,11 +221,38 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.text, info.isTitle = "- Neutral -", true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
-		info.notCheckable = true;
-		info.func = DRF_menu1_OnClick;
-		info.arg2 = menuList;
+		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
 		info.text, info.arg1 = "Pandaren", 24;
+		UIDropDownMenu_AddButton(info, level);
+
+	elseif ( menuList == 14 ) then
+		info.notCheckable, info.func, info.arg2 = true, DRF_menu2_OnClick, menuList;
+		info.text, info.arg1 = "Head", GetInventorySlotInfo("HeadSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Shoulder", GetInventorySlotInfo("ShoulderSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Back", GetInventorySlotInfo("BackSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Chest", GetInventorySlotInfo("ChestSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Shirt", GetInventorySlotInfo("ShirtSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Tabard", GetInventorySlotInfo("TabardSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Wrist", GetInventorySlotInfo("WristSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Hands", GetInventorySlotInfo("HandsSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Waist", GetInventorySlotInfo("WaistSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Legs", GetInventorySlotInfo("LegsSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Feet", GetInventorySlotInfo("FeetSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Main Hand", GetInventorySlotInfo("MainHandSlot");
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = "Off-Hand", GetInventorySlotInfo("SecondaryHandSlot");
 		UIDropDownMenu_AddButton(info, level);
 	end
 end, "MENU");
@@ -188,10 +260,14 @@ end, "MENU");
 DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 	local race, fileName = UnitRace("player");
 
-	DressUpModel:SetUnit("player");
+	if ( DRF_DebugMode == false ) then
+		DressUpModel:SetUnit("player");
+	end
 	DressUpModel:Dress();
-	DressUpModel:SetPortraitZoom(0.8);
-	Model_Reset(DressUpModel);
+	if ( DRF_DebugMode == false ) then
+		DressUpModel:SetPortraitZoom(0.8);
+		Model_Reset(DressUpModel);
+	end
 
 	SetDressUpBackground(DressUpFrame, fileName);
 	PlaySound("gsTitleOptionOK");
