@@ -141,6 +141,9 @@ local function DRF_SetArbitraryRace(id,gender)
 	elseif ( gender == 4 ) then
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\female\\".._backgroundList[id].."female.m2");
 	end
+	if ( DRF_Global["UndressTarget"] ) then
+		DRF_DoUndress();
+	end
 	SetDressUpBackground(DressUpFrame, _backgroundList[id]);
 end
 
