@@ -65,27 +65,66 @@ local function DressUpTexturePath(raceFileName)
 	return "Interface\\DressUpFrame\\DressUpBackground-"..raceFileName;
 end
 
-local function SetDressUpBackground()
-	local race, fileName = UnitRace("player");
+local function SetDressUpBackground(frame, fileName)
 	local texture = DressUpTexturePath(fileName);
-	DressUpBackgroundTopLeft:SetTexture(texture..1);
-	DressUpBackgroundTopRight:SetTexture(texture..2);
-	DressUpBackgroundBotLeft:SetTexture(texture..3);
-	DressUpBackgroundBotRight:SetTexture(texture..4);
+	
+	if ( frame.BGTopLeft ) then
+		frame.BGTopLeft:SetTexture(texture..1);
+	end
+	if ( frame.BGTopRight ) then
+		frame.BGTopRight:SetTexture(texture..2);
+	end
+	if ( frame.BGBottomLeft ) then
+		frame.BGBottomLeft:SetTexture(texture..3);
+	end
+	if ( frame.BGBottomRight ) then
+		frame.BGBottomRight:SetTexture(texture..4);
+	end
 end
 
 function DressUpItemLink(link)
 	if ( not link or not IsDressableItem(link) ) then
-		return;
+		return false;
 	end
-	if ( not DressUpFrame:IsShown() ) then
-		ShowUIPanel(DressUpFrame);
-		SetDressUpBackground();
-		DressUpModel:SetUnit("player");
-		if ( DRF_Global["AutoUndress"] ) then
-			DRF_DoUndress(1);
-		end
-	end
-	DressUpModel:TryOn(link);
-end
+	if ( SideDressUpFrame.parentFrame and SideDressUpFrame.parentFrame:IsShown() ) then
+		if ( not SideDressUpFrame:IsShown() or SideDressUpFrame.mode ~= "player" ) then
+			SideDressUpFrame.mode = "player";
+			SideDressUpFrame.ResetButton:Show();
 
+			local race, fileName = UnitRace("player");
+			SetDressUpBackground(SideDressUpFrame, fileName);
+
+			ShowUIPanel(SideDressUpFrame);
+			SideDressUpModel:SetUnit("player");
+
+			-- We'll worry more about this later. For now, we're just
+			-- copying a function. (Oh my god, UGH, the humanity!)
+			if ( DRF_Global["AutoUndress"] ) then
+				SideDressUpModel:Undress();
+				if ( DRF_Global["Conservative"] ) then
+					SideDressUpModel:TryOn(6833);
+					SideDressUpModel:TryOn(6835);
+					SideDressUpModel:TryOn(55726);
+				end
+
+			end
+		end
+		SideDressUpModel:TryOn(link);
+	else
+		if ( not DressUpFrame:IsShown() or DressUpFrame.mode ~= "player") then
+			DressUpFrame.mode = "player";
+			DressUpFrame.ResetButton:Show();
+
+			local race, fileName = UnitRace("player");
+			SetDressUpBackground(DressUpFrame, fileName);
+
+			ShowUIPanel(DressUpFrame);
+			DressUpModel:SetUnit("player");
+			if ( DRF_Global["AutoUndress"] ) then
+				DRF_DoUndress(1);
+			end
+		end
+		DressUpModel:TryOn(link);
+	end
+	return true;
+end
