@@ -36,7 +36,7 @@ DRF.config = {}; DRF.change = {}; DRF.text = {};
 DRF.config.s1 = "AutoUndress";
 DRF.config.s2 = "Conservative";
 DRF.config.s3 = "UndressTarget";
-DRF.change.s1 = "Always Undress ";
+DRF.change.s1 = "Auto Undress ";
 DRF.change.s2 = "Conservative Mode ";
 DRF.change.s3 = "Undress Target ";
 DRF.text.s1 = "Undress self on open";
@@ -107,3 +107,45 @@ end
 DRF.panel.cancel = function (self) DRF_Cancel();  end;
 DRF.panel.refresh = function (self) SetOptionsPanel();  end;
 
+local function parseSwitch(textconditional,originalstate)
+	if textconditional == "on" then return true;
+	elseif textconditional == "true" then return true;
+	elseif textconditional == "1" then return true;
+	elseif textconditional == "off" then return false;
+	elseif textconditional == "false" then return false;
+	elseif textconditional == "0" then return false;
+	elseif originalstate == false then return true;
+	else return false;
+	end
+end
+
+SLASH_DRF1, SLASH_DRF2 = '/drf', '/dressingroomfunctions';
+function SlashCmdList.DRF(msg, editbox)
+	local command, rest = msg:match("^(%S*)%s*(.-)$");
+
+	command = string.lower(command);
+
+	if command == "help" then
+		SysMessage("/drf help - Shows this help");
+		SysMessage("/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1);
+		SysMessage("/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2);
+		SysMessage("/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3);
+	elseif command == string.lower(DRF.config.s1) then
+		DRF_Global[DRF.config.s1] = parseSwitch(rest,DRF_Global[DRF.config.s1]);
+		SysMessage(DRF.change.s1..englishOnOff(DRF_Global[DRF.config.s1])..".");
+		SetOptionsPanel();
+	elseif command == string.lower(DRF.config.s2) then
+		DRF_Global[DRF.config.s2] = parseSwitch(rest,DRF_Global[DRF.config.s2]);
+		SysMessage(DRF.change.s2..englishOnOff(DRF_Global[DRF.config.s2])..".");
+		SetOptionsPanel();
+	elseif command == string.lower(DRF.config.s3) then
+		DRF_Global[DRF.config.s3] = parseSwitch(rest,DRF_Global[DRF.config.s3]);
+		SysMessage(DRF.change.s3..englishOnOff(DRF_Global[DRF.config.s3])..".");
+		SetOptionsPanel();
+	elseif command == "" then
+		InterfaceOptionsFrame_OpenToCategory(DRF.panel);
+		ReportToChat("Opening Options Frame.");
+	else
+		SysMessage("Unrecognized command. Type /drf help for a list of options.");
+	end
+end

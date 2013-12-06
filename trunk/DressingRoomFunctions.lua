@@ -128,3 +128,17 @@ function DressUpItemLink(link)
 	end
 	return true;
 end
+
+function OpenDressingRoom()
+	-- I admit, this is hacky, unwieldy, and probably a bit of a stupid way to do
+	-- this, but I think it's better than some of the other ways I could've done
+	-- it.
+	DressUpItemLink(27978);
+end
+
+-- /dr command to open dressing room. That's all it does!
+SLASH_OPENDR1, SLASH_OPENDR2 = '/dressingroom', '/dr';
+function SlashCmdList.OPENDR(msg, editBox)
+	OpenDressingRoom();
+end
+
