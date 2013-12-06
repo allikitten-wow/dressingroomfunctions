@@ -127,6 +127,9 @@ DRF_button3.text:SetText("...");
 local function DRF_SetArbitraryRace(id,gender)
 	if ( gender == 0 or gender == 1 ) then
 		DressUpModel:SetCustomRace(id,gender);
+		if ( DRF_Global["UndressTarget"] ) then
+			DRF_DoUndress();
+		end
 		-- Puts a helmet on the character, to fix a bug using hidden helmets.
 		-- This chosen helmet is somewhat invisible, it's a holiday reward from
 		-- the midsummer fire festival.
@@ -140,9 +143,6 @@ local function DRF_SetArbitraryRace(id,gender)
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\male\\".._backgroundList[id].."male.m2");
 	elseif ( gender == 4 ) then
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\female\\".._backgroundList[id].."female.m2");
-	end
-	if ( DRF_Global["UndressTarget"] ) then
-		DRF_DoUndress();
 	end
 	SetDressUpBackground(DressUpFrame, _backgroundList[id]);
 end
