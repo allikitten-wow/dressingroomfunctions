@@ -20,6 +20,13 @@ if not ( DRF_Version == DRF_CoreVersion ) then
 	return;
 end
 
+-- Use No-Taint library - I know this looks weird but this is the way I prefer to do it
+local UIDropDownMenu_Initialize = Lib_UIDropDownMenu_Initialize;
+local UIDropDownMenu_CreateInfo = Lib_UIDropDownMenu_CreateInfo;
+local UIDropDownMenu_AddButton = Lib_UIDropDownMenu_AddButton;
+local ToggleDropDownMenu = Lib_ToggleDropDownMenu;
+local CloseDropDownMenus = Lib_CloseDropDownMenus;
+
 local function Noop() end
 
 local _backgroundList = {
@@ -47,7 +54,7 @@ end
 local DRF_button1 = CreateFrame("Button","DRF_UndressButton",DressUpFrame,"UIPanelButtonTemplate");
 local DRF_button2 = CreateFrame("Button","DRF_TargetButton",DressUpFrame,"UIPanelButtonTemplate");
 local DRF_button3 = CreateFrame("Button","DRF_RaceButton",DressUpFrame,"UIPanelButtonTemplate");
-local DRF_menu1 = CreateFrame("FRAME","DRF_RaceMenu",DRF_button3,"UIDropDownMenuTemplate");
+local DRF_menu1 = CreateFrame("FRAME","DRF_RaceMenu",DRF_button3,"Lib_UIDropDownMenuTemplate");
 
 local function DRF_HookedUpdate(self, delta)
 	if ( not DRF_UndressQueued ) then return; end
@@ -163,6 +170,12 @@ local function DRF_menu2_OnClick(self, arg1, arg2, checked)
 	CloseDropDownMenus();
 end
 
+local function DRF_menuOptions_OnClick(self, arg1, arg2, checked)
+	PlaySound("gsTitleOptionOK");
+	InterfaceOptionsFrame_OpenToCategory(DRF.panel);
+	CloseDropDownMenus();
+end
+
 DRF_menu1:SetPoint("CENTER");
 --UIDropDownMenu_SetWidth(DRF_menu1, 200);
 --UIDropDownMenu_SetText(DRF_menu1, "Select Race/Gender:");
@@ -215,6 +228,15 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 
 		info.text = "Remove";
 		info.menuList, info.hasArrow = 14, true;
+		UIDropDownMenu_AddButton(info, level);
+
+		info.hasArrow, info.text, info.isTitle = false, "- Configure -", true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.checked, info.notCheckable = false, true;
+
+		info.func = DRF_menuOptions_OnClick;
+		info.text, info.arg1 = "Options", 200;
 		UIDropDownMenu_AddButton(info, level);
 
 	elseif ( menuList >= 0 and menuList <= 4 ) then

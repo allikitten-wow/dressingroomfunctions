@@ -43,11 +43,15 @@ DRF.text.s1 = "Undress self on open";
 DRF.text.s2 = "Use conservative 'undress'";
 DRF.text.s3 = "Undress on Target Change";
 
+if DRF_Global[DRF.config.s1] == nil then DRF_Global[DRF.config.s1] = false; end
+if DRF_Global[DRF.config.s2] == nil then DRF_Global[DRF.config.s2] = false; end
+if DRF_Global[DRF.config.s3] == nil then DRF_Global[DRF.config.s3] = false; end
+
 DRF.panel = CreateFrame( "Frame", "DRFPanel", UIParent );
 
 -- Register in the Interface Addon Options GUI
 -- Set the name for the Category for the Options Panel
-DRF.panel.name = "DressingRoomFunctions";
+DRF.panel.name = "Dressing Room Functions";
 -- Add the panel to the Interface Options
 InterfaceOptions_AddCategory(DRF.panel);
 
@@ -144,7 +148,7 @@ function SlashCmdList.DRF(msg, editbox)
 		SetOptionsPanel();
 	elseif command == "" then
 		InterfaceOptionsFrame_OpenToCategory(DRF.panel);
-		ReportToChat("Opening Options Frame.");
+		SysMessage("Opening Options Frame.");
 	else
 		SysMessage("Unrecognized command. Type /drf help for a list of options.");
 	end
