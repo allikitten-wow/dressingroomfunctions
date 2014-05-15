@@ -87,11 +87,17 @@ DRF.panel.option3:SetScript("OnClick",function(self,event,arg1)
 end);
 
 local function SetOptionsPanel()
-	if ( DRF_Global[DRF.config.s1] ) then DRF.panel.option1:SetChecked(true); end
+	if ( DRF_Global[DRF.config.s1] ) then
+		DRF.panel.option1:SetChecked(true); else
+		DRF.panel.option1:SetChecked(false); end
 	DRF_Option1 = DRF_Global[DRF.config.s1];
-	if ( DRF_Global[DRF.config.s2] ) then DRF.panel.option2:SetChecked(true); end
+	if ( DRF_Global[DRF.config.s2] ) then
+		DRF.panel.option2:SetChecked(true); else
+		DRF.panel.option2:SetChecked(false); end
 	DRF_Option2 = DRF_Global[DRF.config.s2];
-	if ( DRF_Global[DRF.config.s3] ) then DRF.panel.option3:SetChecked(true); end
+	if ( DRF_Global[DRF.config.s3] ) then
+		DRF.panel.option3:SetChecked(true); else
+		DRF.panel.option3:SetChecked(false); end
 	DRF_Option3 = DRF_Global[DRF.config.s3];
 end
 
