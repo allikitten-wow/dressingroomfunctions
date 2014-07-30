@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.2.4";
+DRF_CoreVersion = "v1.2.5";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2013  Rachael Alexanderson
@@ -110,6 +110,7 @@ function DressUpItemLink(link)
 			end
 		end
 		SideDressUpModel:TryOn(link);
+		LastQueuedItem=link;
 	else
 		if ( not DressUpFrame:IsShown() or DressUpFrame.mode ~= "player") then
 			DressUpFrame.mode = "player";
@@ -125,6 +126,7 @@ function DressUpItemLink(link)
 			end
 		end
 		DressUpModel:TryOn(link);
+		LastQueuedItem=link;
 	end
 	return true;
 end
@@ -134,6 +136,7 @@ function OpenDressingRoom()
 	-- this, but I think it's better than some of the other ways I could've done
 	-- it.
 	DressUpItemLink(27978);
+	LastQueuedItem=nil;
 end
 
 -- /dr command to open dressing room. That's all it does!

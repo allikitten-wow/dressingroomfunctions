@@ -86,6 +86,9 @@ function DRF_DoUndress(NoTimer)
 		DRF_UndressQueued = 1;
 		DRF_TimeLeft = 0.75;
 	end
+	if ( LastQueuedItem ~= nil ) then
+		DressUpModel:TryOn(LastQueuedItem);
+	end
 end
 
 DRF_button1:SetPoint("Center",DressUpFrame,"TopLeft",50,-421);
@@ -93,6 +96,7 @@ DRF_button1:SetSize(70,22);
 DRF_button1.text = _G["DRF_UndressButton"];
 DRF_button1.text:SetText("Undress");
 DRF_button1:SetScript("OnClick",function(self,event,arg1)
+	LastQueuedItem=nil;
 	DRF_DoUndress();
 	PlaySound("gsTitleOptionOK");
 end);
