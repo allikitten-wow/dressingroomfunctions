@@ -1,6 +1,6 @@
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
---    Copyright (C) 2013  Rachael Alexanderson
+--    Copyright (C) 2014  Rachael Alexanderson
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -84,10 +84,10 @@ function DRF_DoUndress(NoTimer)
 	end
 	if not NoTimer then
 		DRF_UndressQueued = 1;
-		DRF_TimeLeft = 0.75;
+		DRF_TimeLeft = 1.25;
 	end
-	if ( LastQueuedItem ~= nil ) then
-		DressUpModel:TryOn(LastQueuedItem);
+	if ( DRF_LastQueuedItem ~= nil ) then
+		DressUpModel:TryOn(DRF_LastQueuedItem);
 	end
 end
 
@@ -96,8 +96,8 @@ DRF_button1:SetSize(70,22);
 DRF_button1.text = _G["DRF_UndressButton"];
 DRF_button1.text:SetText("Undress");
 DRF_button1:SetScript("OnClick",function(self,event,arg1)
-	LastQueuedItem=nil;
-	DRF_DoUndress();
+	DRF_LastQueuedItem = nil;
+	DRF_DoUndress(1);
 	PlaySound("gsTitleOptionOK");
 end);
 
@@ -124,6 +124,7 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 			Model_Reset(DressUpModel);
 		end
 	end
+	DRF_LastQueuedItem = nil;
 	if ( DRF_Global["UndressTarget"] ) then
 		DRF_DoUndress();
 	end
@@ -136,6 +137,7 @@ DRF_button3.text = _G["DRF_RaceButton"];
 DRF_button3.text:SetText("...");
 
 local function DRF_SetArbitraryRace(id,gender)
+	DRF_LastQueuedItem = nil;
 	if ( gender == 0 or gender == 1 ) then
 		DressUpModel:SetCustomRace(id,gender);
 		if ( DRF_Global["UndressTarget"] ) then
