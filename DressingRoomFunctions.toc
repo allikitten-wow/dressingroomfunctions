@@ -25,6 +25,9 @@
 ## SavedVariablesPerCharacter: DRF_Character
 ## X-eMail: allikitten@sisterhoodmg.info
 
+#strings
+Localization.lua
+
 #core
 DressingRoomFunctions.lua
 

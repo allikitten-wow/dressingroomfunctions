@@ -17,10 +17,10 @@
 --
 
 local function SysMessage(text)
-	DEFAULT_CHAT_FRAME:AddMessage("|cffffff90DRF:|r "..text);
+	DEFAULT_CHAT_FRAME:AddMessage(DRF_L["S_DRF"]..text);
 end
 local function englishOnOff(conditional)
-	if (conditional) then return "|cff00ff00enabled|r"; else return "|cffff0000disabled|r"; end
+	if (conditional) then return DRF_L["S_Enabled"]; else return DRF_L["S_Disabled"]; end
 end
 
 if not ( DRF_Version == DRF_CoreVersion ) then
@@ -31,17 +31,7 @@ if DRF_Global == nil then DRF_Global = {} end;
 
 -- Code based on LUA-only options panel code found on wowpedia.org
 -- Credit goes to CurtWulf and Mortilus
-DRF = {};
-DRF.config = {}; DRF.change = {}; DRF.text = {};
-DRF.config.s1 = "AutoUndress";
-DRF.config.s2 = "Conservative";
-DRF.config.s3 = "UndressTarget";
-DRF.change.s1 = "Auto Undress ";
-DRF.change.s2 = "Conservative Mode ";
-DRF.change.s3 = "Undress Target ";
-DRF.text.s1 = "Undress self on open";
-DRF.text.s2 = "Use conservative 'undress'";
-DRF.text.s3 = "Undress on Target Change";
+-- [SP] The section that used to be here has been moved to Localization.lua
 
 if DRF_Global[DRF.config.s1] == nil then DRF_Global[DRF.config.s1] = false; end
 if DRF_Global[DRF.config.s2] == nil then DRF_Global[DRF.config.s2] = false; end
@@ -51,16 +41,16 @@ DRF.panel = CreateFrame( "Frame", "DRFPanel", UIParent );
 
 -- Register in the Interface Addon Options GUI
 -- Set the name for the Category for the Options Panel
-DRF.panel.name = "Dressing Room Functions";
+DRF.panel.name = DRF_L["O_Panel"];
 -- Add the panel to the Interface Options
 InterfaceOptions_AddCategory(DRF.panel);
 
 DRF.panel.text1 = DRF.panel:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
 DRF.panel.text1:SetPoint("TOP",0,-100);
-DRF.panel.text1:SetText("Dressing Room Functions "..DRF_Version.." by Allikitten (Allicilea of US-MoonGuard)");
+DRF.panel.text1:SetText(DRF_L["O_DRF"]);
 
 DRF.panel.option1 = CreateFrame("CheckButton", "DRFOption1", DRF.panel, "UICheckButtonTemplate");
-DRF.panel.option1:SetPoint("CENTER",-90,45);
+DRF.panel.option1:SetPoint("CENTER",-190,45);
 DRF.panel.option1.text = _G["DRFOption1Text"];
 DRF.panel.option1.text:SetText(DRF.text.s1);
 DRF.panel.option1:SetScript("OnClick",function(self,event,arg1)
@@ -69,7 +59,7 @@ DRF.panel.option1:SetScript("OnClick",function(self,event,arg1)
 end);
 
 DRF.panel.option2 = CreateFrame("CheckButton", "DRFOption2", DRF.panel, "UICheckButtonTemplate");
-DRF.panel.option2:SetPoint("CENTER",-90,15);
+DRF.panel.option2:SetPoint("CENTER",-190,15);
 DRF.panel.option2.text = _G["DRFOption2Text"];
 DRF.panel.option2.text:SetText(DRF.text.s2);
 DRF.panel.option2:SetScript("OnClick",function(self,event,arg1)
@@ -78,7 +68,7 @@ DRF.panel.option2:SetScript("OnClick",function(self,event,arg1)
 end);
 
 DRF.panel.option3 = CreateFrame("CheckButton", "DRFOption3", DRF.panel, "UICheckButtonTemplate");
-DRF.panel.option3:SetPoint("CENTER",-90,-15);
+DRF.panel.option3:SetPoint("CENTER",-190,-15);
 DRF.panel.option3.text = _G["DRFOption3Text"];
 DRF.panel.option3.text:SetText(DRF.text.s3);
 DRF.panel.option3:SetScript("OnClick",function(self,event,arg1)
@@ -110,7 +100,7 @@ local function DRF_Cancel()
 	DRF_Global[DRF.config.s2] = DRF_Option2;
 	DRF_Global[DRF.config.s3] = DRF_Option3;
 	if didchange then
-		SysMessage("Canceled Options Change");
+		SysMessage(DRF_L["S_Cancel"]);
 	end
 end
 
@@ -135,11 +125,11 @@ function SlashCmdList.DRF(msg, editbox)
 
 	command = string.lower(command);
 
-	if command == "help" then
-		SysMessage("/drf help - Shows this help");
-		SysMessage("/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1);
-		SysMessage("/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2);
-		SysMessage("/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3);
+	if command == DRF_L["C_Help"] then
+		SysMessage(DRF_L["S_Help"]);
+		SysMessage(DRF_L["S_Help1"]);
+		SysMessage(DRF_L["S_Help2"]);
+		SysMessage(DRF_L["S_Help3"]);
 	elseif command == string.lower(DRF.config.s1) then
 		DRF_Global[DRF.config.s1] = parseSwitch(rest,DRF_Global[DRF.config.s1]);
 		SysMessage(DRF.change.s1..englishOnOff(DRF_Global[DRF.config.s1])..".");
@@ -154,8 +144,8 @@ function SlashCmdList.DRF(msg, editbox)
 		SetOptionsPanel();
 	elseif command == "" then
 		InterfaceOptionsFrame_OpenToCategory(DRF.panel);
-		SysMessage("Opening Options Frame.");
+		SysMessage(DRF_L["S_OptionsFrame"]);
 	else
-		SysMessage("Unrecognized command. Type /drf help for a list of options.");
+		SysMessage(DRF_L["S_BadCommand"]);
 	end
 end

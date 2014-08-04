@@ -94,7 +94,7 @@ end
 DRF_button1:SetPoint("Center",DressUpFrame,"TopLeft",50,-421);
 DRF_button1:SetSize(70,22);
 DRF_button1.text = _G["DRF_UndressButton"];
-DRF_button1.text:SetText("Undress");
+DRF_button1.text:SetText(DRF_L["Undress"]);
 DRF_button1:SetScript("OnClick",function(self,event,arg1)
 	DRF_LastQueuedItem = nil;
 	DRF_DoUndress(1);
@@ -104,12 +104,13 @@ end);
 DRF_button2:SetPoint("Center",DRF_UndressButton,"Center",62,0);
 DRF_button2:SetSize(60,22);
 DRF_button2.text = _G["DRF_TargetButton"];
-DRF_button2.text:SetText("Target");
+DRF_button2.text:SetText(DRF_L["Target"]);
 DRF_button2:SetScript("OnClick",function(self,event,arg1)
 	local race, fileName = UnitRace("target");
 
 	if ( UnitIsPlayer("target") ) then
 		DressUpModel:SetUnit("target");
+		DRF_LastGender = UnitSex("target");
 		SetDressUpBackground(DressUpFrame, fileName);
 		if ( DRF_DebugMode == false ) then
 			DressUpModel:SetPortraitZoom(0.8);
@@ -118,6 +119,7 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 	else
 		race, fileName = UnitRace("player");
 		DressUpModel:SetUnit("player");
+		DRF_LastGender = UnitSex("player");
 		SetDressUpBackground(DressUpFrame, fileName);
 		if ( DRF_DebugMode == false ) then
 			DressUpModel:SetPortraitZoom(0.8);
@@ -134,12 +136,13 @@ end);
 DRF_button3:SetPoint("Center",DRF_TargetButton,"Center",42,0);
 DRF_button3:SetSize(30,22);
 DRF_button3.text = _G["DRF_RaceButton"];
-DRF_button3.text:SetText("...");
+DRF_button3.text:SetText(DRF_L["ButtonMore"]);
 
 local function DRF_SetArbitraryRace(id,gender)
 	DRF_LastQueuedItem = nil;
 	if ( gender == 0 or gender == 1 ) then
 		DressUpModel:SetCustomRace(id,gender);
+		DRF_LastGender = 2 + gender;
 		if ( DRF_Global["UndressTarget"] ) then
 			DRF_DoUndress();
 		end
@@ -154,8 +157,10 @@ local function DRF_SetArbitraryRace(id,gender)
 		end
 	elseif ( gender == 3 ) then
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\male\\".._backgroundList[id].."male.m2");
+		DRF_LastGender = 2;
 	elseif ( gender == 4 ) then
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\female\\".._backgroundList[id].."female.m2");
+		DRF_LastGender = 3;
 	end
 	SetDressUpBackground(DressUpFrame, _backgroundList[id]);
 end
@@ -191,24 +196,24 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 	if level == 1 then
 		info.checked, info.notCheckable = false, true;
 
-		info.hasArrow, info.text, info.isTitle = false, "- Gender -", true;
+		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Gender"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.checked, info.notCheckable = false, true;
 
-		info.text = "Male";
+		info.text = DRF_L["Male"];
 		info.menuList, info.hasArrow = 0, true;
 		UIDropDownMenu_AddButton(info, level);
-		info.text = "Female";
+		info.text = DRF_L["Female"];
 		info.menuList, info.hasArrow = 1, true;
 		UIDropDownMenu_AddButton(info, level);
 
-		info.hasArrow, info.text, info.isTitle = false, "- Other -", true;
+		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Other"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.checked, info.notCheckable = false, true;
 
-		info.text = "Background";
+		info.text = DRF_L["Background"];
 		info.menuList, info.hasArrow = 2, true;
 		UIDropDownMenu_AddButton(info, level);
 
@@ -227,98 +232,108 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 			UIDropDownMenu_AddButton(info, level);
 		end
 
-		info.hasArrow, info.text, info.isTitle = false, "- Unequip -", true;
+		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Unequip"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.checked, info.notCheckable = false, true;
 
-		info.text = "Remove";
+		info.text = DRF_L["Remove"];
 		info.menuList, info.hasArrow = 14, true;
 		UIDropDownMenu_AddButton(info, level);
 
-		info.hasArrow, info.text, info.isTitle = false, "- Configure -", true;
+		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Configure"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.checked, info.notCheckable = false, true;
 
 		info.func = DRF_menuOptions_OnClick;
-		info.text, info.arg1 = "Options", 200;
+		info.text, info.arg1 = DRF_L["Options"], 200;
 		UIDropDownMenu_AddButton(info, level);
 
 	elseif ( menuList >= 0 and menuList <= 4 ) then
+
+		-- Language Handling
+		local lgender;
+		if ( menuList == 1 or menuList == 4 ) then lgender = "F"; else lgender = "M"; end
+
+		-- Background - choosing "male" or "female" racelists based on last known gender selection
+		if ( menuList == 2 ) then
+			if DRF_LastGender == 3 then lgender = "F"; else lgender = "M"; end
+		end
+
 		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
-		info.text, info.isTitle = "- Alliance -", true;
+		info.text, info.isTitle = DRF_L["M_Alliance"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
-		info.text, info.arg1 = "Human", 1;
+		info.text, info.arg1 = DRF_L["Human"..lgender], 1;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Dwarf", 3;
+		info.text, info.arg1 = DRF_L["Dwarf"..lgender], 3;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Night Elf", 4;
+		info.text, info.arg1 = DRF_L["NightElf"..lgender], 4;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Gnome", 7;
+		info.text, info.arg1 = DRF_L["Gnome"..lgender], 7;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Draenei", 11;
+		info.text, info.arg1 = DRF_L["Draenei"..lgender], 11;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Worgen", 22;
+		info.text, info.arg1 = DRF_L["Worgen"..lgender], 22;
 		UIDropDownMenu_AddButton(info, level);
 
-		info.text, info.isTitle = "- Horde -", true;
+		info.text, info.isTitle = DRF_L["M_Horde"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
-		info.text, info.arg1 = "Orc", 2;
+		info.text, info.arg1 = DRF_L["Orc"..lgender], 2;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Undead", 5;
+		info.text, info.arg1 = DRF_L["Undead"..lgender], 5;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Tauren", 6;
+		info.text, info.arg1 = DRF_L["Tauren"..lgender], 6;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Troll", 8;
+		info.text, info.arg1 = DRF_L["Troll"..lgender], 8;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Goblin", 9;
+		info.text, info.arg1 = DRF_L["Goblin"..lgender], 9;
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Blood Elf", 10;
+		info.text, info.arg1 = DRF_L["BloodElf"..lgender], 10;
 		UIDropDownMenu_AddButton(info, level);
 
-		info.text, info.isTitle = "- Neutral -", true;
+		info.text, info.isTitle = DRF_L["M_Neutral"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
 		info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
 
-		info.text, info.arg1 = "Pandaren", 24;
+		info.text, info.arg1 = DRF_L["Pandaren"..lgender], 24;
 		UIDropDownMenu_AddButton(info, level);
 
 	elseif ( menuList == 14 ) then
 		info.notCheckable, info.func, info.arg2 = true, DRF_menu2_OnClick, menuList;
-		info.text, info.arg1 = "Head", GetInventorySlotInfo("HeadSlot");
+		info.text, info.arg1 = DRF_L["Head"], GetInventorySlotInfo("HeadSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Shoulder", GetInventorySlotInfo("ShoulderSlot");
+		info.text, info.arg1 = DRF_L["Shoulder"], GetInventorySlotInfo("ShoulderSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Back", GetInventorySlotInfo("BackSlot");
+		info.text, info.arg1 = DRF_L["Back"], GetInventorySlotInfo("BackSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Chest", GetInventorySlotInfo("ChestSlot");
+		info.text, info.arg1 = DRF_L["Chest"], GetInventorySlotInfo("ChestSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Shirt", GetInventorySlotInfo("ShirtSlot");
+		info.text, info.arg1 = DRF_L["Shirt"], GetInventorySlotInfo("ShirtSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Tabard", GetInventorySlotInfo("TabardSlot");
+		info.text, info.arg1 = DRF_L["Tabard"], GetInventorySlotInfo("TabardSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Wrist", GetInventorySlotInfo("WristSlot");
+		info.text, info.arg1 = DRF_L["Wrist"], GetInventorySlotInfo("WristSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Hands", GetInventorySlotInfo("HandsSlot");
+		info.text, info.arg1 = DRF_L["Hands"], GetInventorySlotInfo("HandsSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Waist", GetInventorySlotInfo("WaistSlot");
+		info.text, info.arg1 = DRF_L["Waist"], GetInventorySlotInfo("WaistSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Legs", GetInventorySlotInfo("LegsSlot");
+		info.text, info.arg1 = DRF_L["Legs"], GetInventorySlotInfo("LegsSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Feet", GetInventorySlotInfo("FeetSlot");
+		info.text, info.arg1 = DRF_L["Feet"], GetInventorySlotInfo("FeetSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Main Hand", GetInventorySlotInfo("MainHandSlot");
+		info.text, info.arg1 = DRF_L["MainHand"], GetInventorySlotInfo("MainHandSlot");
 		UIDropDownMenu_AddButton(info, level);
-		info.text, info.arg1 = "Off-Hand", GetInventorySlotInfo("SecondaryHandSlot");
+		info.text, info.arg1 = DRF_L["OffHand"], GetInventorySlotInfo("SecondaryHandSlot");
 		UIDropDownMenu_AddButton(info, level);
 	end
 end, "MENU");
@@ -328,6 +343,7 @@ DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 
 	if ( DRF_DebugMode == false ) then
 		DressUpModel:SetUnit("player");
+		DRF_LastGender = UnitSex("player");
 	end
 	DressUpModel:Dress();
 	if ( DRF_DebugMode == false ) then
