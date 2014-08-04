@@ -45,9 +45,8 @@ DRF_Version = GetAddOnMetadata("DressingRoomFunctions","Version");
 DRF_DebugMode = false;
 
 function DRF_ImproperUpdate()
-	local s_message = "You have not properly updated your add-ons. Please restart the game - Dressing Room Functions will not work until you do.";
-	message(s_message);
-	DEFAULT_CHAT_FRAME:AddMessage(s_message);
+	message(DRF_L["BadUpdate"]);
+	DEFAULT_CHAT_FRAME:AddMessage(DRF_L["BadUpdate"]);
 end
 
 if not ( DRF_Version == DRF_CoreVersion ) then
@@ -84,7 +83,10 @@ end
 
 function DressUpItemLink(link)
 	if ( not link or not IsDressableItem(link) ) then
-		return false;
+		-- [SP] Hack for /dr command, forces open even if item is not cached.
+		if ( not link == 27978 ) then
+			return false;
+		end
 	end
 	DRF_LastQueuedItem = link;
 	if ( SideDressUpFrame.parentFrame and SideDressUpFrame.parentFrame:IsShown() ) then
@@ -121,6 +123,7 @@ function DressUpItemLink(link)
 
 			ShowUIPanel(DressUpFrame);
 			DressUpModel:SetUnit("player");
+			DRF_LastGender = UnitSex("player");
 			if ( DRF_Global["AutoUndress"] ) then
 				DRF_DoUndress(1);
 			end
