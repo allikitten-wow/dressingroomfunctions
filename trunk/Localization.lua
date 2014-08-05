@@ -35,6 +35,7 @@ DRF_Locale = GetLocale();
 	DRF_L["Background"] = "Background";
 	DRF_L["Remove"] = "Remove";
 	DRF_L["Options"] = "Options";
+	DRF_L["None"] = "None";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -138,6 +139,7 @@ if ( DRF_Locale == "zhCN" or DRF_Locale == "zhTW" or DRF_Locale == "enCN" or DRF
 	DRF_L["Background"] = "背景";
 	DRF_L["Remove"] = "删除设备";
 	DRF_L["Options"] = "选项";
+	DRF_L["None"] = "无";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -240,6 +242,7 @@ if ( DRF_Locale == "itIT" ) then
 	DRF_L["Background"] = "Sfondo";
 	DRF_L["Remove"] = "Togliere";
 	DRF_L["Options"] = "Opzioni";
+	DRF_L["None"] = "Nessuno";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -343,6 +346,7 @@ if ( DRF_Locale == "koKR" ) then
 	DRF_L["Background"] = "배경";
 	DRF_L["Remove"] = "장비를 제거";
 	DRF_L["Options"] = "옵션";
+	DRF_L["None"] = "없음";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -445,6 +449,7 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["Background"] = "задник";
 	DRF_L["Remove"] = "Удалить оборудование";
 	DRF_L["Options"] = "опции";
+	DRF_L["None"] = "Ни один";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -547,6 +552,7 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 	DRF_L["Background"] = "Fondo";
 	DRF_L["Remove"] = "Retire";
 	DRF_L["Options"] = "Opciones";
+	DRF_L["None"] = "Ninguno";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -649,6 +655,7 @@ if ( DRF_Locale == "deDE" ) then
 	DRF_L["Background"] = "Hintergrund";
 	DRF_L["Remove"] = "Geräte entfernen";
 	DRF_L["Options"] = "Optionen";
+	DRF_L["None"] = "Keiner";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -751,6 +758,7 @@ if ( DRF_Locale == "frFR" ) then
 	DRF_L["Background"] = "Toile de Fond";
 	DRF_L["Remove"] = "Retirer L'Équipement";
 	DRF_L["Options"] = "Options de";
+	DRF_L["None"] = "Aucun";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -853,6 +861,7 @@ if ( DRF_Locale == "ptPT" or DRF_Locale == "ptBR" ) then
 	DRF_L["Background"] = "Contexto";
 	DRF_L["Remove"] = "Remover";
 	DRF_L["Options"] = "Opções";
+	DRF_L["None"] = "Nenhum";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
