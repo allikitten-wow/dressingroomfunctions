@@ -162,7 +162,14 @@ local function DRF_SetArbitraryRace(id,gender)
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\female\\".._backgroundList[id].."female.m2");
 		DRF_LastGender = 3;
 	end
-	SetDressUpBackground(DressUpFrame, _backgroundList[id]);
+	if not ( id == 0 ) then
+		SetDressUpBackground(DressUpFrame, _backgroundList[id]);
+	else
+		DressUpBackgroundTopLeft:SetTexture(0,0,0,0.0)
+		DressUpBackgroundTopRight:SetTexture(0,0,0,0.0);
+		DressUpBackgroundBotLeft:SetTexture(0,0,0,0.0);
+		DressUpBackgroundBotRight:SetTexture(0,0,0,0.0);
+	end
 end
 
 local function DRF_PerformOtherAction(arg1,arg2)
@@ -306,6 +313,16 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 
 		info.text, info.arg1 = DRF_L["Pandaren"..lgender], 24;
 		UIDropDownMenu_AddButton(info, level);
+
+		if ( menuList == 2 ) then
+			info.text, info.isTitle = DRF_L["M_Other"], true;
+			UIDropDownMenu_AddButton(info, level);
+			info = UIDropDownMenu_CreateInfo();
+			info.notCheckable, info.func, info.arg2 = true, DRF_menu1_OnClick, menuList;
+
+			info.text, info.arg1 = DRF_L["None"], 0;
+			UIDropDownMenu_AddButton(info, level);
+		end
 
 	elseif ( menuList == 14 ) then
 		info.notCheckable, info.func, info.arg2 = true, DRF_menu2_OnClick, menuList;

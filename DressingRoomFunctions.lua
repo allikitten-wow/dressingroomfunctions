@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.2.5";
+DRF_CoreVersion = "v1.3";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2014  Rachael Alexanderson
@@ -45,7 +45,11 @@ DRF_Version = GetAddOnMetadata("DressingRoomFunctions","Version");
 DRF_DebugMode = false;
 
 function DRF_ImproperUpdate()
-	message(DRF_L["BadUpdate"]);
+	if not (DRF_L) then
+		message("You have not properly updated your add-ons. Please restart the game - Dressing Room Functions will not work until you do.");
+	else
+		message(DRF_L["BadUpdate"]);
+	end
 	DEFAULT_CHAT_FRAME:AddMessage(DRF_L["BadUpdate"]);
 end
 
