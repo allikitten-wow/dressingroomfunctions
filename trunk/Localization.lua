@@ -20,8 +20,12 @@ DRF_Version = GetAddOnMetadata("DressingRoomFunctions","Version");
 
 DRF_L = {};
 DRF = {};
-DRF.config = {}; DRF.change = {}; DRF.text = {};
+DRF.config = {}; DRF.change = {}; DRF.text = {}; DRF.alias = {};
 DRF_Locale = GetLocale();
+
+DRF.config.s1 = "AutoUndress";
+DRF.config.s2 = "Conservative";
+DRF.config.s3 = "UndressTarget";
 
 
 -- Hey, this is a template. Copy me and modify me for your language!
@@ -47,13 +51,12 @@ DRF_Locale = GetLocale();
 	DRF_L["M_Horde"] = "- Horde -";
 	DRF_L["M_Neutral"] = "- Neutral -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "AutoUndress";
+	DRF.alias.s2 = "Conservative";
+	DRF.alias.s3 = "UndressTarget";
 	DRF.change.s1 = "Auto Undress ";
 	DRF.change.s2 = "Conservative Mode ";
 	DRF.change.s3 = "Undress Target ";
@@ -117,9 +120,9 @@ DRF_Locale = GetLocale();
 	DRF_L["S_Disabled"] = "|cffff0000disabled|r";
 	DRF_L["S_Cancel"] = "Canceled Options Change";
 	DRF_L["S_Help"] = "/drf help - Shows this help";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Opening Options Frame.";
 	DRF_L["S_BadCommand"] = "Unrecognized command. Type /drf help for a list of options.";
 
@@ -128,20 +131,122 @@ DRF_Locale = GetLocale();
 --end
 
 
--- *** [[[ CHINESE ]]] ***
-if ( DRF_Locale == "zhCN" or DRF_Locale == "zhTW" or DRF_Locale == "enCN" or DRF_Locale == "enTW" ) then
+-- *** [[[ CHINESE TRADITIONAL ]]] *** (Credit: BlueNightSky from Kerobbs.net)
+if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 
 	-- *** Words
-	DRF_L["Undress"] = "脱衣服";
+	DRF_L["Undress"] = "脫裝";
+	DRF_L["Target"] = "目標";
+	DRF_L["Male"] = "男性";
+	DRF_L["Female"] = "女";
+	DRF_L["Background"] = "背景";
+	DRF_L["Remove"] = "設置";
+	DRF_L["Options"] = "選項";
+	DRF_L["None"] = "无";
+
+	-- *** Menu Options - these use special punctuation
+	DRF_L["ButtonMore"] = "...";
+	DRF_L["M_Gender"] = "- 性別 -";
+	DRF_L["M_Other"] = "- 其他 -";
+	DRF_L["M_Unequip"] = "- 卸裝 -";
+	DRF_L["M_Configure"] = "- 設置 -";
+	DRF_L["M_Alliance"] = "- 聯盟 -";
+	DRF_L["M_Horde"] = "- 部落 -";
+	DRF_L["M_Neutral"] = "- 中立 -";
+
+	DRF_L["C_Help"] = "help";
+
+	-- *** Config Options
+	DRF.alias.s1 = "自動脫衣服";
+	DRF.alias.s2 = "保守";
+	DRF.alias.s3 = "脫衣服的目標";
+	DRF.change.s1 = "自動脫裝 ";
+	DRF.change.s2 = "保守模式 ";
+	DRF.change.s3 = "目標脫裝 ";
+	DRF.text.s1 = "開啟時脫光自己";
+	DRF.text.s2 = "使用保守的'脫裝'";
+	DRF.text.s3 = "目標轉換時脫裝";
+
+	-- *** Race List - Masculine
+	DRF_L["HumanM"] = "人類";
+	DRF_L["DwarfM"] = "矮人";
+	DRF_L["NightElfM"] = "暗夜精靈";
+	DRF_L["GnomeM"] = "侏儒";
+	DRF_L["DraeneiM"] = "德萊尼";
+	DRF_L["WorgenM"] = "狼人";
+
+	DRF_L["OrcM"] = "獸人";
+	DRF_L["UndeadM"] = "亡靈";
+	DRF_L["TaurenM"] = "牛頭人";
+	DRF_L["TrollM"] = "巨魔";
+	DRF_L["GoblinM"] = "地精";
+	DRF_L["BloodElfM"] = "血精靈";
+
+	DRF_L["PandarenM"] = "熊貓人";
+
+	-- *** Race List - Feminine
+	DRF_L["HumanF"] = "人類";
+	DRF_L["DwarfF"] = "矮人";
+	DRF_L["NightElfF"] = "暗夜精靈";
+	DRF_L["GnomeF"] = "侏儒";
+	DRF_L["DraeneiF"] = "德萊尼";
+	DRF_L["WorgenF"] = "狼人";
+
+	DRF_L["OrcF"] = "獸人";
+	DRF_L["UndeadF"] = "亡靈";
+	DRF_L["TaurenF"] = "牛頭人";
+	DRF_L["TrollF"] = "巨魔";
+	DRF_L["GoblinF"] = "地精";
+	DRF_L["BloodElfF"] = "血精靈";
+
+	DRF_L["PandarenF"] = "熊貓人";
+
+	-- *** Item Slots
+	DRF_L["Head"] = "頭部";
+	DRF_L["Shoulder"] = "肩部";
+	DRF_L["Back"] = "背部";
+	DRF_L["Chest"] = "胸部";
+	DRF_L["Shirt"] = "襯衣";
+	DRF_L["Tabard"] = "外袍";
+	DRF_L["Wrist"] = "手腕";
+	DRF_L["Hands"] = "手";
+	DRF_L["Waist"] = "腰部";
+	DRF_L["Legs"] = "腿部";
+	DRF_L["Feet"] = "腳";
+	DRF_L["MainHand"] = "主手";
+	DRF_L["OffHand"] = "副手";
+
+	-- *** System Messages
+	DRF_L["BadUpdate"] = "外掛程式不能正確更新。請重新開機遊戲。更衣室功能將無法正常工作，直到你做。";
+	DRF_L["S_DRF"] = "|cffffff90DRF:|r ";
+	DRF_L["S_Enabled"] = "|cff00ff00啟用|r";
+	DRF_L["S_Disabled"] = "|cffff0000禁用|r";
+	DRF_L["S_Cancel"] = "取消選項變更";
+	DRF_L["S_Help"] = "/drf help - 顯示命令列表";
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_OptionsFrame"] = "開啟選項面板。";
+	DRF_L["S_BadCommand"] = "未組織的命令。 輸入 /drf help 取得命令列表。";
+
+	DRF_L["O_Panel"] = "試衣間增強";
+	DRF_L["O_DRF"] = "試衣間增強"..DRF_Version.."由 AlliKitten （由 BlueNightSky 提供的翻譯） （機由必應和谷歌的翻譯）";
+end
+
+
+-- *** [[[ CHINESE SIMPLIFIED ]]] *** (Using BlueNightSky's Traditional Chinese translations, retranslated to Simplified)
+if ( DRF_Locale == "zhCN" or DRF_Locale == "enCN" ) then
+
+	-- *** Words
+	DRF_L["Undress"] = "脱装";
 	DRF_L["Target"] = "目标";
 	DRF_L["Male"] = "男性";
 	DRF_L["Female"] = "女";
 	DRF_L["Background"] = "背景";
-	DRF_L["Remove"] = "删除设备";
+	DRF_L["Remove"] = "设置";
 	DRF_L["Options"] = "选项";
 	DRF_L["None"] = "无";
 
-	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
 	DRF_L["M_Gender"] = "- 性别 -";
 	DRF_L["M_Other"] = "- 其他 -";
@@ -151,13 +256,12 @@ if ( DRF_Locale == "zhCN" or DRF_Locale == "zhTW" or DRF_Locale == "enCN" or DRF
 	DRF_L["M_Horde"] = "- 部落 -";
 	DRF_L["M_Neutral"] = "- 中性 -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "自动脱衣服";
+	DRF.alias.s2 = "保守";
+	DRF.alias.s3 = "脱衣服的目标";
 	DRF.change.s1 = "自动脱衣服自拍 ";
 	DRF.change.s2 = "保守脱衣服 ";
 	DRF.change.s3 = "脱衣服的目标开关 ";
@@ -200,17 +304,17 @@ if ( DRF_Locale == "zhCN" or DRF_Locale == "zhTW" or DRF_Locale == "enCN" or DRF
 	DRF_L["PandarenF"] = "熊猫人";
 
 	-- *** Item Slots
-	DRF_L["Head"] = "头盔";
-	DRF_L["Shoulder"] = "肩垫";
-	DRF_L["Back"] = "披肩";
-	DRF_L["Chest"] = "胸部护甲";
-	DRF_L["Shirt"] = "衬衫";
-	DRF_L["Tabard"] = "战袍";
-	DRF_L["Wrist"] = "护腕";
-	DRF_L["Hands"] = "手套";
-	DRF_L["Waist"] = "腰带";
-	DRF_L["Legs"] = "腿部护甲";
-	DRF_L["Feet"] = "靴子";
+	DRF_L["Head"] = "头部";
+	DRF_L["Shoulder"] = "肩部";
+	DRF_L["Back"] = "背部";
+	DRF_L["Chest"] = "胸部";
+	DRF_L["Shirt"] = "衬衣";
+	DRF_L["Tabard"] = "外袍";
+	DRF_L["Wrist"] = "手腕";
+	DRF_L["Hands"] = "手";
+	DRF_L["Waist"] = "腰部";
+	DRF_L["Legs"] = "腿部";
+	DRF_L["Feet"] = "脚";
 	DRF_L["MainHand"] = "主手";
 	DRF_L["OffHand"] = "副手";
 
@@ -218,19 +322,18 @@ if ( DRF_Locale == "zhCN" or DRF_Locale == "zhTW" or DRF_Locale == "enCN" or DRF
 	DRF_L["BadUpdate"] = "插件不能正确更新。请重新启动游戏。更衣室功能将无法正常工作，直到你做。";
 	DRF_L["S_DRF"] = "|cffffff90DRF:|r ";
 	DRF_L["S_Enabled"] = "|cff00ff00启用|r";
-	DRF_L["S_Disabled"] = "|cffff0000残|r";
+	DRF_L["S_Disabled"] = "|cffff0000禁用|r";
 	DRF_L["S_Cancel"] = "取消变更";
-	DRF_L["S_Help"] = "/drf help - 显示此帮助消息";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
-	DRF_L["S_OptionsFrame"] = "打开配置";
-	DRF_L["S_BadCommand"] = "无法识别的命令。输入/drf help的选项列表。";
+	DRF_L["S_Help"] = "/drf help - 取消选项变更";
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_OptionsFrame"] = "开启选项面板。";
+	DRF_L["S_BadCommand"] = "未组织的命令。 输入 /drf help 取得命令行表。";
 
-	DRF_L["O_Panel"] = "更衣室功能";
-	DRF_L["O_DRF"] = "更衣室功能"..DRF_Version.."由Allikitten- 翻译由谷歌";
+	DRF_L["O_Panel"] = "试衣间增强";
+	DRF_L["O_DRF"] = "试衣间增强"..DRF_Version.."由 AlliKitten （由 BlueNightSky 提供的翻译） （机由必应和谷歌的翻译）";
 end
-
 
 -- *** [[[ ITALIAN ]]] ***
 if ( DRF_Locale == "itIT" ) then
@@ -254,13 +357,12 @@ if ( DRF_Locale == "itIT" ) then
 	DRF_L["M_Horde"] = "- Orda -";
 	DRF_L["M_Neutral"] = "- Neutrale -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "SpogliarsiMe";
+	DRF.alias.s2 = "conservatore";
+	DRF.alias.s3 = "DestSpoglarsi";
 	DRF.change.s1 = "Svestizione Automatico ";
 	DRF.change.s2 = "Modalità conservatore ";
 	DRF.change.s3 = "Spogliati di destinazione ";
@@ -324,9 +426,9 @@ if ( DRF_Locale == "itIT" ) then
 	DRF_L["S_Disabled"] = "|cffff0000disabile|r";
 	DRF_L["S_Cancel"] = "Cambiato nulla";
 	DRF_L["S_Help"] = "/drf help - Mostra questo messaggio di aiuto";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Pannello di configurazione di apertura.";
 	DRF_L["S_BadCommand"] = "Comando non riconosciuto. Digitare /drf help per un elenco di opzioni.";
 
@@ -358,13 +460,12 @@ if ( DRF_Locale == "koKR" ) then
 	DRF_L["M_Horde"] = "- 유목민의 떼 -";
 	DRF_L["M_Neutral"] = "- 중립국 -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "옷나";
+	DRF.alias.s2 = "계속";
+	DRF.alias.s3 = "스트립";
 	DRF.change.s1 = "자동 알몸 ";
 	DRF.change.s2 = "보수적 인 옷을 벗고 ";
 	DRF.change.s3 = "알몸 대상 ";
@@ -428,9 +529,9 @@ if ( DRF_Locale == "koKR" ) then
 	DRF_L["S_Disabled"] = "|cffff0000장애인|r";
 	DRF_L["S_Cancel"] = "취소 변경";
 	DRF_L["S_Help"] = "/drf help - 이 도움말 메시지를 표시";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "구성 패널의 오프닝.";
 	DRF_L["S_BadCommand"] = "명령을 인식 할 수 없습니다. 옵션 목록 /drf help 입력합니다.";
 
@@ -461,13 +562,12 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["M_Horde"] = "- орда -";
 	DRF_L["M_Neutral"] = "- нейтральный -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "Раздевайтесь";
+	DRF.alias.s2 = "Консервативная";
+	DRF.alias.s3 = "РаздевайтесьЦелевая";
 	DRF.change.s1 = "Автоматически Раздевайтесь ";
 	DRF.change.s2 = "Консервативная Раздевайтесь ";
 	DRF.change.s3 = "Раздевайтесь Целевая ";
@@ -531,9 +631,9 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["S_Disabled"] = "|cffff0000инвалид|r";
 	DRF_L["S_Cancel"] = "Отменен изменение варианты";
 	DRF_L["S_Help"] = "/drf help - Показывает эту помощь";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Открытие панели Конфигурация";
 	DRF_L["S_BadCommand"] = "Непонятная команда. Введите /drf help для списка опций.";
 
@@ -564,13 +664,12 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 	DRF_L["M_Horde"] = "- Horda -";
 	DRF_L["M_Neutral"] = "- Neutral -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "AutoDesv";
+	DRF.alias.s2 = "Conservador";
+	DRF.alias.s3 = "DesvObjetivo";
 	DRF.change.s1 = "Automáticamente Desvestirse ";
 	DRF.change.s2 = "Desvestirse Conservador ";
 	DRF.change.s3 = "Desvestirse Objetivo ";
@@ -634,9 +733,9 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 	DRF_L["S_Disabled"] = "|cffff0000discapacitado|r";
 	DRF_L["S_Cancel"] = "Cancelado modificación Opciones";
 	DRF_L["S_Help"] = "/drf help - Muestra esta ayuda";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Panel de configuración de apertura.";
 	DRF_L["S_BadCommand"] = "Comando no reconocido. Escriba /drf help para una lista de opciones.";
 
@@ -667,13 +766,12 @@ if ( DRF_Locale == "deDE" ) then
 	DRF_L["M_Horde"] = "- Horde -";
 	DRF_L["M_Neutral"] = "- Neutral -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "Entkleiden";
+	DRF.alias.s2 = "Konservative";
+	DRF.alias.s3 = "EntkleidenZiel";
 	DRF.change.s1 = "Automatisch Entkleiden ";
 	DRF.change.s2 = "Konservative Entkleiden ";
 	DRF.change.s3 = "Entkleiden Ziel ";
@@ -737,9 +835,9 @@ if ( DRF_Locale == "deDE" ) then
 	DRF_L["S_Disabled"] = "|cffff0000behindert|r";
 	DRF_L["S_Cancel"] = "Abgebrochen Optionen ändern";
 	DRF_L["S_Help"] = "/drf help - Zeigt diese Hilfe";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Öffnungs Optionen Panel ";
 	DRF_L["S_BadCommand"] = "Unbekannter Befehl. Geben /drf help für eine Liste von Optionen.";
 
@@ -770,13 +868,12 @@ if ( DRF_Locale == "frFR" ) then
 	DRF_L["M_Horde"] = "- Horde -";
 	DRF_L["M_Neutral"] = "- Neutre -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "AutoDeshab";
+	DRF.alias.s2 = "Conservateur";
+	DRF.alias.s3 = "DeshabCible";
 	DRF.change.s1 = "Automatiquement Déshabillez ";
 	DRF.change.s2 = "Déshabillez conservateur ";
 	DRF.change.s3 = "Déshabillez cible ";
@@ -840,9 +937,9 @@ if ( DRF_Locale == "frFR" ) then
 	DRF_L["S_Disabled"] = "|cffff0000handicapés|r";
 	DRF_L["S_Cancel"] = "Des options annulées changement";
 	DRF_L["S_Help"] = "/drf help - Affiche cette aide";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Ouvrant le Panneau de configuration.";
 	DRF_L["S_BadCommand"] = "Commande non reconnue. Tapez /drf help pour une liste d'options.";
 
@@ -873,13 +970,12 @@ if ( DRF_Locale == "ptPT" or DRF_Locale == "ptBR" ) then
 	DRF_L["M_Horde"] = "- Horda -";
 	DRF_L["M_Neutral"] = "- Neutro -";
 
-	-- /drf help command - will probably leave as-is but putting it here just in case
 	DRF_L["C_Help"] = "help";
 
 	-- *** Config Options
-	DRF.config.s1 = "AutoUndress";
-	DRF.config.s2 = "Conservative";
-	DRF.config.s3 = "UndressTarget";
+	DRF.alias.s1 = "AutoDespir";
+	DRF.alias.s2 = "Conservador";
+	DRF.alias.s3 = "DespirAlvo";
 	DRF.change.s1 = "Automaticamente Despir ";
 	DRF.change.s2 = "Despir Conservador ";
 	DRF.change.s3 = "Despir-Alvo ";
@@ -943,9 +1039,9 @@ if ( DRF_Locale == "ptPT" or DRF_Locale == "ptBR" ) then
 	DRF_L["S_Disabled"] = "|cffff0000inválido|r";
 	DRF_L["S_Cancel"] = "Cancelado mudança opções";
 	DRF_L["S_Help"] = "/drf help - Mostra esta ajuda";
-	DRF_L["S_Help1"] = "/drf "..DRF.config.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.config.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.config.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
 	DRF_L["S_OptionsFrame"] = "Abertura Painel de Configuração.";
 	DRF_L["S_BadCommand"] = "Comando não reconhecido. Digite /drf help para uma lista de opções.";
 

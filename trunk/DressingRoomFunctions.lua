@@ -86,9 +86,9 @@ local function SetDressUpBackground(frame, fileName)
 end
 
 function DressUpItemLink(link)
-	if ( not link or not IsDressableItem(link) ) then
-		-- [SP] Hack for /dr command, forces open even if item is not cached.
-		if ( not link == 27978 ) then
+	-- [SP] Hack for /dr command, forces open even if item is not cached.
+	if ( not link == 27978 ) then
+		if ( not link or not IsDressableItem(link) ) then
 			return false;
 		end
 	end
