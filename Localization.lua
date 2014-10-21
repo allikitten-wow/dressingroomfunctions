@@ -744,7 +744,7 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 end
 
 
--- *** [[[ GERMAN ]]] ***
+-- *** [[[ GERMAN ]]] *** (Credit: Imithat from wowinterface.com)
 if ( DRF_Locale == "deDE" ) then
 	-- *** Words
 	DRF_L["Undress"] = "Entkleiden";
@@ -752,15 +752,15 @@ if ( DRF_Locale == "deDE" ) then
 	DRF_L["Male"] = "Männlich";
 	DRF_L["Female"] = "Weiblich";
 	DRF_L["Background"] = "Hintergrund";
-	DRF_L["Remove"] = "Geräte entfernen";
+	DRF_L["Remove"] = "Rüstung entfernen";
 	DRF_L["Options"] = "Optionen";
-	DRF_L["None"] = "Keiner";
+	DRF_L["None"] = "Nichts";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
-	DRF_L["M_Gender"] = "- Geschlect -";
+	DRF_L["M_Gender"] = "- Geschlecht -";
 	DRF_L["M_Other"] = "- Andere -";
-	DRF_L["M_Unequip"] = "- Ausklinken -";
+	DRF_L["M_Unequip"] = "- Ausschalten -";
 	DRF_L["M_Configure"] = "- Konfigurieren -";
 	DRF_L["M_Alliance"] = "- Allianz -";
 	DRF_L["M_Horde"] = "- Horde -";
@@ -770,14 +770,14 @@ if ( DRF_Locale == "deDE" ) then
 
 	-- *** Config Options
 	DRF.alias.s1 = "Entkleiden";
-	DRF.alias.s2 = "Konservative";
-	DRF.alias.s3 = "EntkleidenZiel";
+	DRF.alias.s2 = "Konservativ";
+	DRF.alias.s3 = "Entkleide Ziel";
 	DRF.change.s1 = "Automatisch Entkleiden ";
-	DRF.change.s2 = "Konservative Entkleiden ";
-	DRF.change.s3 = "Entkleiden Ziel ";
-	DRF.text.s1 = "Entkleiden much, wenn meine Garderobe geöffnet";
-	DRF.text.s2 = "Verwenden konservatiaven Outfit für statt Badeanzug auszuziehen";
-	DRF.text.s3 = "Entkleiden Ziel, wenn ich wechseln Ankleideraum Ziele";
+	DRF.change.s2 = "Konservatives Entkleiden ";
+	DRF.change.s3 = "Entkleide Ziel ";
+	DRF.text.s1 = "Entkleide mich, wenn meine Anprobe geöffnet wird";
+	DRF.text.s2 = "Verwende ein Konservatives Outfit wenn du dich entkleidest";
+	DRF.text.s3 = "Entkleide das Ziel, nachdem zweiten drücken des Ziels";
 
 	-- *** Race List - Masculine
 	DRF_L["HumanM"] = "Mensch";
@@ -829,20 +829,20 @@ if ( DRF_Locale == "deDE" ) then
 	DRF_L["OffHand"] = "Schildhand";
 
 	-- *** System Messages
-	DRF_L["BadUpdate"] = "Sie haben nicht korrekt aktualisiert Addons. Bitte das Spiel neu starten - Ankleidezimmer Funktionen werden nicht funktionieren bis Sie tun.";
+	DRF_L["BadUpdate"] = "Sie haben das Addon nicht korrekt Aktualisiert. Bitte starten sie das Spiel neu - DressingRoomFuntions wird nicht richtig funktionieren bevor sie das tun";
 	DRF_L["S_DRF"] = "|cffffff90DRF:|r ";
-	DRF_L["S_Enabled"] = "|cff00ff00aktiviert|r";
-	DRF_L["S_Disabled"] = "|cffff0000behindert|r";
-	DRF_L["S_Cancel"] = "Abgebrochen Optionen ändern";
-	DRF_L["S_Help"] = "/drf help - Zeigt diese Hilfe";
+	DRF_L["S_Enabled"] = "|cff00ff00Aktiviert|r";
+	DRF_L["S_Disabled"] = "|cffff0000Ausgeschalten|r";
+	DRF_L["S_Cancel"] = "Abgebrochene Optionen ändern";
+	DRF_L["S_Help"] = "/drf help - Zeigt die Hilfe";
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
-	DRF_L["S_OptionsFrame"] = "Öffnungs Optionen Panel ";
-	DRF_L["S_BadCommand"] = "Unbekannter Befehl. Geben /drf help für eine Liste von Optionen.";
+	DRF_L["S_OptionsFrame"] = "Öffne Optionen Menu ";
+	DRF_L["S_BadCommand"] = "Unbekannter Befehl. Gebe /drf help ein für eine Liste von Optionen.";
 
-	DRF_L["O_Panel"] = "Ankleidezimmer Funktionen";
-	DRF_L["O_DRF"] = "Ankleidezimmer Funktionen "..DRF_Version.." von Allikitten - Übersetzt von Google";
+	DRF_L["O_Panel"] = "DressingRoomFuntions";
+	DRF_L["O_DRF"] = "DressingRoomFuntions "..DRF_Version.." von Allikitten";
 end
 
 
