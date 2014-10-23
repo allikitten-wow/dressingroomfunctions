@@ -130,15 +130,15 @@ function SlashCmdList.DRF(msg, editbox)
 		SysMessage(DRF_L["S_Help1"]);
 		SysMessage(DRF_L["S_Help2"]);
 		SysMessage(DRF_L["S_Help3"]);
-	elseif command == string.lower(DRF.config.s1) then
+	elseif command == string.lower(DRF.config.s1) or command == string.lower(DRF.alias.s1) then
 		DRF_Global[DRF.config.s1] = parseSwitch(rest,DRF_Global[DRF.config.s1]);
 		SysMessage(DRF.change.s1..englishOnOff(DRF_Global[DRF.config.s1])..".");
 		SetOptionsPanel();
-	elseif command == string.lower(DRF.config.s2) then
+	elseif command == string.lower(DRF.config.s2) or command == string.lower(DRF.alias.s2) then
 		DRF_Global[DRF.config.s2] = parseSwitch(rest,DRF_Global[DRF.config.s2]);
 		SysMessage(DRF.change.s2..englishOnOff(DRF_Global[DRF.config.s2])..".");
 		SetOptionsPanel();
-	elseif command == string.lower(DRF.config.s3) then
+	elseif command == string.lower(DRF.config.s3) or command == string.lower(DRF.alias.s3) then
 		DRF_Global[DRF.config.s3] = parseSwitch(rest,DRF_Global[DRF.config.s3]);
 		SysMessage(DRF.change.s3..englishOnOff(DRF_Global[DRF.config.s3])..".");
 		SetOptionsPanel();
