@@ -1,19 +1,19 @@
 ﻿--
---    Dressing Room Functions - Allows undress and target model for dressing room
---    Copyright (C) 2014  Rachael Alexanderson
+--	Dressing Room Functions - Allows undress and target model for dressing room
+--	Copyright (C) 2014  Rachael Alexanderson
 --
---    This program is free software: you can redistribute it and/or modify
---    it under the terms of the GNU General Public License as published by
---    the Free Software Foundation, either version 3 of the License, or
---    (at your option) any later version.
+--	This program is free software: you can redistribute it and/or modify
+--	it under the terms of the GNU General Public License as published by
+--	the Free Software Foundation, either version 3 of the License, or
+--	(at your option) any later version.
 --
---    This program is distributed in the hope that it will be useful,
---    but WITHOUT ANY WARRANTY; without even the implied warranty of
---    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
---    GNU General Public License for more details.
+--	This program is distributed in the hope that it will be useful,
+--	but WITHOUT ANY WARRANTY; without even the implied warranty of
+--	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--	GNU General Public License for more details.
 --
---    You should have received a copy of the GNU General Public License
---    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--	You should have received a copy of the GNU General Public License
+--	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 
 DRF_Version = GetAddOnMetadata("DressingRoomFunctions","Version");
@@ -132,6 +132,7 @@ DRF.config.s3 = "UndressTarget";
 
 
 -- *** [[[ CHINESE TRADITIONAL ]]] *** (Credit: BlueNightSky from Kerobbs.net)
+
 if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 
 	-- *** Words
@@ -142,7 +143,7 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["Background"] = "背景";
 	DRF_L["Remove"] = "設置";
 	DRF_L["Options"] = "選項";
-	DRF_L["None"] = "无";
+	DRF_L["None"] = "無";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -171,15 +172,15 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["HumanM"] = "人類";
 	DRF_L["DwarfM"] = "矮人";
 	DRF_L["NightElfM"] = "暗夜精靈";
-	DRF_L["GnomeM"] = "侏儒";
+	DRF_L["GnomeM"] = "地精";
 	DRF_L["DraeneiM"] = "德萊尼";
 	DRF_L["WorgenM"] = "狼人";
 
 	DRF_L["OrcM"] = "獸人";
-	DRF_L["UndeadM"] = "亡靈";
+	DRF_L["UndeadM"] = "不死族";
 	DRF_L["TaurenM"] = "牛頭人";
-	DRF_L["TrollM"] = "巨魔";
-	DRF_L["GoblinM"] = "地精";
+	DRF_L["TrollM"] = "食人妖";
+	DRF_L["GoblinM"] = "哥布林";
 	DRF_L["BloodElfM"] = "血精靈";
 
 	DRF_L["PandarenM"] = "熊貓人";
@@ -188,15 +189,15 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["HumanF"] = "人類";
 	DRF_L["DwarfF"] = "矮人";
 	DRF_L["NightElfF"] = "暗夜精靈";
-	DRF_L["GnomeF"] = "侏儒";
+	DRF_L["GnomeF"] = "地精";
 	DRF_L["DraeneiF"] = "德萊尼";
 	DRF_L["WorgenF"] = "狼人";
 
 	DRF_L["OrcF"] = "獸人";
-	DRF_L["UndeadF"] = "亡靈";
+	DRF_L["UndeadF"] = "不死族";
 	DRF_L["TaurenF"] = "牛頭人";
-	DRF_L["TrollF"] = "巨魔";
-	DRF_L["GoblinF"] = "地精";
+	DRF_L["TrollF"] = "食人妖";
+	DRF_L["GoblinF"] = "哥布林";
 	DRF_L["BloodElfF"] = "血精靈";
 
 	DRF_L["PandarenF"] = "熊貓人";
@@ -217,7 +218,7 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["OffHand"] = "副手";
 
 	-- *** System Messages
-	DRF_L["BadUpdate"] = "外掛程式不能正確更新。請重新開機遊戲。更衣室功能將無法正常工作，直到你做。";
+	DRF_L["BadUpdate"] = "外掛程式不能正確更新。請重新開始遊戲。更衣室功能將無法正常工作直到你重啟。";
 	DRF_L["S_DRF"] = "|cffffff90DRF:|r ";
 	DRF_L["S_Enabled"] = "|cff00ff00啟用|r";
 	DRF_L["S_Disabled"] = "|cffff0000禁用|r";
@@ -540,40 +541,40 @@ if ( DRF_Locale == "koKR" ) then
 end
 
 
--- *** [[[ RUSSIAN ]]] ***
+-- *** [[[ RUSSIAN ]]] *** (Contributed: Nixelf from curseforge.net)
 if ( DRF_Locale == "ruRU" ) then
 	-- *** Words
-	DRF_L["Undress"] = "раздеваться";
-	DRF_L["Target"] = "цель";
-	DRF_L["Male"] = "мужской";
-	DRF_L["Female"] = "женский";
-	DRF_L["Background"] = "задник";
-	DRF_L["Remove"] = "Удалить оборудование";
-	DRF_L["Options"] = "опции";
-	DRF_L["None"] = "Ни один";
+	DRF_L["Undress"] = "Раздеть";
+	DRF_L["Target"] = "Цель";
+	DRF_L["Male"] = "Мужской";
+	DRF_L["Female"] = "Женский";
+	DRF_L["Background"] = "Фон";
+	DRF_L["Remove"] = "Снять вещь";
+	DRF_L["Options"] = "Настройки";
+	DRF_L["None"] = "Ничего";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
-	DRF_L["M_Gender"] = "- пол -";
-	DRF_L["M_Other"] = "- другой -";
-	DRF_L["M_Unequip"] = "- изъятия -";
-	DRF_L["M_Configure"] = "- конфигурировать -";
-	DRF_L["M_Alliance"] = "- альянс -";
-	DRF_L["M_Horde"] = "- орда -";
-	DRF_L["M_Neutral"] = "- нейтральный -";
+	DRF_L["M_Gender"] = "- Пол -";
+	DRF_L["M_Other"] = "- Другое -";
+	DRF_L["M_Unequip"] = "- Снять -";
+	DRF_L["M_Configure"] = "- Настройка -";
+	DRF_L["M_Alliance"] = "- Альянс -";
+	DRF_L["M_Horde"] = "- Орда -";
+	DRF_L["M_Neutral"] = "- Нейтральные -";
 
-	DRF_L["C_Help"] = "help";
+	DRF_L["C_Help"] = "Помощь";
 
 	-- *** Config Options
-	DRF.alias.s1 = "Раздевайтесь";
-	DRF.alias.s2 = "Консервативная";
-	DRF.alias.s3 = "РаздевайтесьЦелевая";
-	DRF.change.s1 = "Автоматически Раздевайтесь ";
-	DRF.change.s2 = "Консервативная Раздевайтесь ";
-	DRF.change.s3 = "Раздевайтесь Целевая ";
-	DRF.text.s1 = "Раздень меня, когда открывается моя гардеробная";
-	DRF.text.s2 = "Используйте консервативный наряд для раздевания вместо купальнике";
-	DRF.text.s3 = "Раздевайтесь цель при переключении гардеробная цели";
+	DRF.alias.s1 = "AutoUndress";
+	DRF.alias.s2 = "Conservative";
+	DRF.alias.s3 = "UndressTarget";
+	DRF.change.s1 = "Автоматическое Раздевание ";
+	DRF.change.s2 = "Режим Костюма ";
+	DRF.change.s3 = "Раздеть Цель ";
+	DRF.text.s1 = "Раздеть персонажа когда открывается гардеробная";
+	DRF.text.s2 = "Использовать костюм при раздевании вместо нижнего белья";
+	DRF.text.s3 = "Раздеть цель при выборе цели";
 
 	-- *** Race List - Masculine
 	DRF_L["HumanM"] = "Человек";
@@ -610,35 +611,36 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["PandarenF"] = "Пандарен";
 
 	-- *** Item Slots
-	DRF_L["Head"] = "шлем";
-	DRF_L["Shoulder"] = "наплечные";
-	DRF_L["Back"] = "мыс";
-	DRF_L["Chest"] = "нагрудник";
-	DRF_L["Shirt"] = "рубашка";
-	DRF_L["Tabard"] = "камзол герольда";
-	DRF_L["Wrist"] = "Наручи";
-	DRF_L["Hands"] = "перчатки";
-	DRF_L["Waist"] = "ремень";
-	DRF_L["Legs"] = "леггинсы";
-	DRF_L["Feet"] = "ботинки";
-	DRF_L["MainHand"] = "Первичная рук";
+	DRF_L["Head"] = "Шлем";
+	DRF_L["Shoulder"] = "Плечо";
+	DRF_L["Back"] = "Плащ";
+	DRF_L["Chest"] = "Грудь";
+	DRF_L["Shirt"] = "Рубашка";
+	DRF_L["Tabard"] = "Гербовая накидка";
+	DRF_L["Wrist"] = "Запястья";
+	DRF_L["Hands"] = "Кисти рук";
+	DRF_L["Waist"] = "Пояс";
+	DRF_L["Legs"] = "Ноги";
+	DRF_L["Feet"] = "Ступни";
+	DRF_L["MainHand"] = "Правая рука";
 	DRF_L["OffHand"] = "Левая рука";
 
 	-- *** System Messages
-	DRF_L["BadUpdate"] = "У вас нет правильно обновили аддоны. Пожалуйста, перезапустите игру - Туалетная Функции номер не будет работать, пока вы делаете.";
+	DRF_L["BadUpdate"] = "Ваши модификации обновлены неправильно. Пожалуйста, перезапустите игру - Dressing Room
+Functions не будет работать пока вы этого не сделаете";
 	DRF_L["S_DRF"] = "|cffffff90DRF:|r ";
-	DRF_L["S_Enabled"] = "|cff00ff00включен|r";
-	DRF_L["S_Disabled"] = "|cffff0000инвалид|r";
-	DRF_L["S_Cancel"] = "Отменен изменение варианты";
-	DRF_L["S_Help"] = "/drf help - Показывает эту помощь";
-	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
-	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
-	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
-	DRF_L["S_OptionsFrame"] = "Открытие панели Конфигурация";
-	DRF_L["S_BadCommand"] = "Непонятная команда. Введите /drf help для списка опций.";
+	DRF_L["S_Enabled"] = "|cff00ff00включено|r";
+	DRF_L["S_Disabled"] = "|cffff0000выключено|r";
+	DRF_L["S_Cancel"] = "Изменения настроек отменены";
+	DRF_L["S_Help"] = "/drf help - Показывает эту справку";
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1" [on/off] - "..DRF.text.s1
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2" [on/off] - "..DRF.text.s2
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3" [on/off] - "..DRF.text.s3
+	DRF_L["S_OptionsFrame"] = "Открытие панели настроек";
+	DRF_L["S_BadCommand"] = "Неизвестная команда. Введите /drf help для получения списка настроек.";
 
-	DRF_L["O_Panel"] = "Функции Гардеробная";
-	DRF_L["O_DRF"] = "Функции Гардеробная "..DRF_Version.." по Allikitten - перевод Google";
+	DRF_L["O_Panel"] = "Dressing Room Functions";
+	DRF_L["O_DRF"] = "Dressing Room Functions "..DRF_Version.." по Allikitten - перевод Армун@Азурегос";
 end
 
 
