@@ -626,8 +626,7 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["OffHand"] = "Левая рука";
 
 	-- *** System Messages
-	DRF_L["BadUpdate"] = "Ваши модификации обновлены неправильно. Пожалуйста, перезапустите игру - Dressing Room
-Functions не будет работать пока вы этого не сделаете";
+	DRF_L["BadUpdate"] = "Ваши модификации обновлены неправильно. Пожалуйста, перезапустите игру - Dressing Room Functions не будет работать пока вы этого не сделаете";
 	DRF_L["S_DRF"] = "|cffffff90DRF:|r ";
 	DRF_L["S_Enabled"] = "|cff00ff00включено|r";
 	DRF_L["S_Disabled"] = "|cffff0000выключено|r";
