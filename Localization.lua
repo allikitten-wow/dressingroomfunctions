@@ -632,9 +632,9 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["S_Disabled"] = "|cffff0000выключено|r";
 	DRF_L["S_Cancel"] = "Изменения настроек отменены";
 	DRF_L["S_Help"] = "/drf help - Показывает эту справку";
-	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1" [on/off] - "..DRF.text.s1
-	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2" [on/off] - "..DRF.text.s2
-	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3" [on/off] - "..DRF.text.s3
+	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1
+	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2
+	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3
 	DRF_L["S_OptionsFrame"] = "Открытие панели настроек";
 	DRF_L["S_BadCommand"] = "Неизвестная команда. Введите /drf help для получения списка настроек.";
 
