@@ -87,7 +87,7 @@ end
 
 function DressUpItemLink(link)
 	-- [SP] Hack for /dr command, forces open even if item is not cached.
-	if ( not link == "27978" ) then
+	if ( link ~= "27978" ) then
 		if ( not link or not IsDressableItem(link) ) then
 			return false;
 		end
@@ -141,7 +141,7 @@ function OpenDressingRoom()
 	-- I admit, this is hacky, unwieldy, and probably a bit of a stupid way to do
 	-- this, but I think it's better than some of the other ways I could've done
 	-- it.
-	DressUpItemLink(27978);
+	DressUpItemLink("27978");
 	DRF_LastQueuedItem = nil;
 end
 
