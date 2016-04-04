@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.3.1.2";
+DRF_CoreVersion = "v1.3.1.3";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2014  Rachael Alexanderson
@@ -87,7 +87,7 @@ end
 
 function DressUpItemLink(link)
 	-- [SP] Hack for /dr command, forces open even if item is not cached.
-	if ( not link == 27978 ) then
+	if ( not link == "27978" ) then
 		if ( not link or not IsDressableItem(link) ) then
 			return false;
 		end
