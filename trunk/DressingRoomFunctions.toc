@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-## Interface: 60200
+## Interface: 70000
 ## Title: Dressing Room Functions
 ## Title-enUS: Dressing Room Functions
 ## Title-enGB: Dressing Room Functions
@@ -68,7 +68,4 @@ libs\DropDownMenu\EasyMenu.lua
 #modules
 DRF_ComboMenus.lua
 DRF_Options.lua
-
-#fix blizzard bugs
-#FixBlizzardBugs.lua
 
