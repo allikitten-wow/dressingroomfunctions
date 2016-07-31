@@ -129,6 +129,8 @@ function DressUpItemLink(link)
 			ShowUIPanel(DressUpFrame);
 			DressUpModel:SetUnit("player");
 			DRF_LastGender = UnitSex("player");
+			DRF_LastRace = select(2,UnitRace("player"));
+			DRF_LastName = UnitName("player");
 			if ( DRF_Global["AutoUndress"] ) then
 				DRF_DoUndress(1);
 			end
@@ -138,7 +140,7 @@ function DressUpItemLink(link)
 	return true;
 end
 
-function DRF_DumpItemLinks()
+function DRF_DumpItemLinks(precacheOnly)
 	-- Reference Table - created with user's language
 	local LanguageRefs = { DRF_L["Head"], DRF_L["Shoulder"], DRF_L["Back"], DRF_L["Chest"], DRF_L["Shirt"], DRF_L["Tabard"],
 		DRF_L["Wrist"], DRF_L["Hands"], DRF_L["Waist"], DRF_L["Legs"], DRF_L["Feet"], DRF_L["MainHand"], DRF_L["OffHand"] };
@@ -151,11 +153,23 @@ function DRF_DumpItemLinks()
 		GetInventorySlotInfo("SecondaryHandSlot") };
 
 	-- Iterate the Language table for each slot, and then print out its link. Oooh the magic!
-	SysMessage(DRF_L["Links"]..":");
+	if ( precacheOnly ~= true ) then
+		local GenderMessage;
+		local RaceMessage;
+		-- Localize the player's gender and race
+		if ( DRF_LastGender == 2 ) then 
+			GenderMessage = MALE;
+			RaceMessage = DRF_L[DRF_LastRace.."M"];
+		else
+			GenderMessage = FEMALE;
+			RaceMessage = DRF_L[DRF_LastRace.."F"];
+		end
+		SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
+	end
 	for i,v in ipairs(LanguageRefs) do
 		local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
 		if ( myItemLink ~= nil ) then
-			SysMessage(v..": "..myItemLink);
+			if ( precacheOnly ~= true ) then SysMessage(v..": "..myItemLink); end
 		end
 	end
 end
@@ -171,6 +185,9 @@ function OpenDressingRoom()
 		ShowUIPanel(DressUpFrame);
 		DressUpModel:SetUnit("player");
 		DRF_LastGender = UnitSex("player");
+		DRF_LastRace = select(2,UnitRace("player"));
+		DRF_LastName = UnitName("player");
+		DRF_DumpItemLinks(true); -- Precache item links
 		if ( DRF_Global["AutoUndress"] ) then
 			DRF_DoUndress(1);
 		end
@@ -183,3 +200,9 @@ function SlashCmdList.OPENDR(msg, editBox)
 	OpenDressingRoom();
 end
 
+-- Global Precache. This 'should' ensure certain items (used by this addon) are always loaded.
+local preCache;
+preCache = GetItemInfo(23323);
+preCache = GetItemInfo(6833);
+preCache = GetItemInfo(6835);
+preCache = GetItemInfo(55726);

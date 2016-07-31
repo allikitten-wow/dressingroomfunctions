@@ -51,7 +51,7 @@ DRF.config.s3 = "UndressTarget";
 	DRF_L["M_Alliance"] = "- Alliance -";
 	DRF_L["M_Horde"] = "- Horde -";
 	DRF_L["M_Neutral"] = "- Neutral -";
-	DRF_L["M_Dump"] = "- Dump -"; -- New for Legion Pre-Patch
+	DRF_L["M_Dump"] = "- Lists -"; -- New for Legion Pre-Patch
 
 	DRF_L["C_Help"] = "help";
 
@@ -349,6 +349,7 @@ if ( DRF_Locale == "itIT" ) then
 	DRF_L["Remove"] = "Togliere";
 	DRF_L["Options"] = "Opzioni";
 	DRF_L["None"] = "Nessuno";
+	DRF_L["Links"] = "Ligações de itens"; -- New for Legion Pre-Patch
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -359,6 +360,7 @@ if ( DRF_Locale == "itIT" ) then
 	DRF_L["M_Alliance"] = "- Alleanza -";
 	DRF_L["M_Horde"] = "- Orda -";
 	DRF_L["M_Neutral"] = "- Neutrale -";
+	DRF_L["M_Dump"] = "- Elenchi -"; -- New for Legion Pre-Patch
 
 	DRF_L["C_Help"] = "help";
 
@@ -452,6 +454,7 @@ if ( DRF_Locale == "koKR" ) then
 	DRF_L["Remove"] = "장비를 제거";
 	DRF_L["Options"] = "옵션";
 	DRF_L["None"] = "없음";
+	DRF_L["Links"] = "항목 링크";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -462,6 +465,7 @@ if ( DRF_Locale == "koKR" ) then
 	DRF_L["M_Alliance"] = "- 동맹 -";
 	DRF_L["M_Horde"] = "- 유목민의 떼 -";
 	DRF_L["M_Neutral"] = "- 중립국 -";
+	DRF_L["M_Dump"] = "- 기울기 -";
 
 	DRF_L["C_Help"] = "help";
 
@@ -656,6 +660,7 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 	DRF_L["Remove"] = "Retire";
 	DRF_L["Options"] = "Opciones";
 	DRF_L["None"] = "Ninguno";
+	DRF_L["Links"] = "Enlaces artículo";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -666,6 +671,7 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 	DRF_L["M_Alliance"] = "- Alianza -";
 	DRF_L["M_Horde"] = "- Horda -";
 	DRF_L["M_Neutral"] = "- Neutral -";
+	DRF_L["M_Dump"] = "- Liza -";
 
 	DRF_L["C_Help"] = "help";
 
@@ -860,6 +866,7 @@ if ( DRF_Locale == "frFR" ) then
 	DRF_L["Remove"] = "Retirer L'Équipement";
 	DRF_L["Options"] = "Options de";
 	DRF_L["None"] = "Aucun";
+	DRF_L["Links"] = "Point Liens"; -- New for Legion Pre-Patch
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -870,6 +877,7 @@ if ( DRF_Locale == "frFR" ) then
 	DRF_L["M_Alliance"] = "- Alliance -";
 	DRF_L["M_Horde"] = "- Horde -";
 	DRF_L["M_Neutral"] = "- Neutre -";
+	DRF_L["M_Dump"] = "- Listes -";
 
 	DRF_L["C_Help"] = "help";
 
@@ -962,6 +970,7 @@ if ( DRF_Locale == "ptPT" or DRF_Locale == "ptBR" ) then
 	DRF_L["Remove"] = "Remover";
 	DRF_L["Options"] = "Opções";
 	DRF_L["None"] = "Nenhum";
+	DRF_L["Links"] = "Ligações de itens"; -- New for Legion Pre-Patch
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -972,6 +981,7 @@ if ( DRF_Locale == "ptPT" or DRF_Locale == "ptBR" ) then
 	DRF_L["M_Alliance"] = "- Aliança -";
 	DRF_L["M_Horde"] = "- Horda -";
 	DRF_L["M_Neutral"] = "- Neutro -";
+	DRF_L["M_Dump"] = "- Listas -";
 
 	DRF_L["C_Help"] = "help";
 
@@ -1057,3 +1067,6 @@ BINDING_HEADER_DRF = DRF_L["O_Panel"];
 BINDING_NAME_OPENDRESSINGROOM = DRESSUP_FRAME;
 BINDING_NAME_OPENDRFOPTIONS = INTERFACE_OPTIONS;
 
+-- Why undead are labeled internally as scourge? - just a hack to correct this for some parts of the addon
+DRF_L["ScourgeM"] = DRF_L["UndeadM"]
+DRF_L["ScourgeF"] = DRF_L["UndeadF"]
