@@ -76,11 +76,11 @@ function DRF_DoUndress(NoTimer)
 
 	if ( DRF_Global["Conservative"] ) then
 		-- White Tuxedo Shirt
-		DressUpModel:TryOn(6833);
+		DressUpModel:TryOn(select(2,GetItemInfo(6833)));
 		-- Black Tuxedo Pants
-		DressUpModel:TryOn(6835);
+		DressUpModel:TryOn(select(2,GetItemInfo(6835)));
 		-- Brightwood Sandals
-		DressUpModel:TryOn(55726);
+		DressUpModel:TryOn(select(2,GetItemInfo(55726)));
 	end
 	if not NoTimer then
 		DRF_UndressQueued = 1;
@@ -150,7 +150,7 @@ local function DRF_SetArbitraryRace(id,gender)
 		-- This chosen helmet is somewhat invisible, it's a holiday reward from
 		-- the midsummer fire festival.
 		if ( DRF_DebugMode == false ) then
-			DressUpModel:TryOn(23323);
+			DressUpModel:TryOn(select(2,GetItemInfo(23323)));
 			DressUpModel:UndressSlot(GetInventorySlotInfo("HeadSlot"));
 			DressUpModel:SetPortraitZoom(0.8);
 			Model_Reset(DressUpModel);

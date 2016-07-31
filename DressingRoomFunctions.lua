@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.3.1.3";
+DRF_CoreVersion = "v1.3.2";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2014  Rachael Alexanderson
@@ -86,11 +86,8 @@ local function SetDressUpBackground(frame, fileName)
 end
 
 function DressUpItemLink(link)
-	-- [SP] Hack for /dr command, forces open even if item is not cached.
-	if ( link ~= "27978" ) then
-		if ( not link or not IsDressableItem(link) ) then
-			return false;
-		end
+	if ( not link or not IsDressableItem(link) ) then
+		return false;
 	end
 	DRF_LastQueuedItem = link;
 	if ( SideDressUpFrame.parentFrame and SideDressUpFrame.parentFrame:IsShown() ) then
@@ -109,9 +106,9 @@ function DressUpItemLink(link)
 			if ( DRF_Global["AutoUndress"] ) then
 				SideDressUpModel:Undress();
 				if ( DRF_Global["Conservative"] ) then
-					SideDressUpModel:TryOn(6833);
-					SideDressUpModel:TryOn(6835);
-					SideDressUpModel:TryOn(55726);
+					SideDressUpModel:TryOn(select(2,GetItemInfo(6833)));
+					SideDressUpModel:TryOn(select(2,GetItemInfo(6835)));
+					SideDressUpModel:TryOn(select(2,GetItemInfo(55726)));
 				end
 
 			end
@@ -138,11 +135,20 @@ function DressUpItemLink(link)
 end
 
 function OpenDressingRoom()
-	-- I admit, this is hacky, unwieldy, and probably a bit of a stupid way to do
-	-- this, but I think it's better than some of the other ways I could've done
-	-- it.
-	DressUpItemLink("27978");
-	DRF_LastQueuedItem = nil;
+	if ( not DressUpFrame:IsShown() or DressUpFrame.mode ~= "player") then
+		DressUpFrame.mode = "player";
+		DressUpFrame.ResetButton:Show();
+
+		local race, fileName = UnitRace("player");
+		SetDressUpBackground(DressUpFrame, fileName);
+
+		ShowUIPanel(DressUpFrame);
+		DressUpModel:SetUnit("player");
+		DRF_LastGender = UnitSex("player");
+		if ( DRF_Global["AutoUndress"] ) then
+			DRF_DoUndress(1);
+		end
+	end
 end
 
 -- /dr command to open dressing room. That's all it does!
