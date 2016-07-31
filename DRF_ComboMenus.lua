@@ -1,6 +1,6 @@
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
---    Copyright (C) 2014  Rachael Alexanderson
+--    Copyright (C) 2016  Rachael Alexanderson
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -194,6 +194,12 @@ local function DRF_menuOptions_OnClick(self, arg1, arg2, checked)
 	CloseDropDownMenus();
 end
 
+local function DRF_menuDumpItemLinks_OnClick(self, arg1, arg2, checked)
+	PlaySound("gsTitleOptionOK");
+	CloseDropDownMenus();
+	DRF_DumpItemLinks();
+end
+
 DRF_menu1:SetPoint("CENTER");
 --UIDropDownMenu_SetWidth(DRF_menu1, 200);
 --UIDropDownMenu_SetText(DRF_menu1, "Select Race/Gender:");
@@ -255,6 +261,15 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 
 		info.func = DRF_menuOptions_OnClick;
 		info.text, info.arg1 = DRF_L["Options"], 200;
+		UIDropDownMenu_AddButton(info, level);
+
+		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Dump"], true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.checked, info.notCheckable = false, true;
+
+		info.func = DRF_menuDumpItemLinks_OnClick;
+		info.text, info.arg1 = DRF_L["Links"], 201;
 		UIDropDownMenu_AddButton(info, level);
 
 	elseif ( menuList >= 0 and menuList <= 4 ) then

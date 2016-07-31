@@ -1,7 +1,7 @@
-DRF_CoreVersion = "v1.3.2";
+DRF_CoreVersion = "v1.4";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
---    Copyright (C) 2014  Rachael Alexanderson
+--    Copyright (C) 2016  Rachael Alexanderson
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -16,6 +16,10 @@ DRF_CoreVersion = "v1.3.2";
 --    You should have received a copy of the GNU General Public License
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
+
+local function SysMessage(text)
+	DEFAULT_CHAT_FRAME:AddMessage(DRF_L["S_DRF"]..text);
+end
 
 local function Noop() end
 
@@ -132,6 +136,28 @@ function DressUpItemLink(link)
 		DressUpModel:TryOn(link);
 	end
 	return true;
+end
+
+function DRF_DumpItemLinks()
+	-- Reference Table - created with user's language
+	local LanguageRefs = { DRF_L["Head"], DRF_L["Shoulder"], DRF_L["Back"], DRF_L["Chest"], DRF_L["Shirt"], DRF_L["Tabard"],
+		DRF_L["Wrist"], DRF_L["Hands"], DRF_L["Waist"], DRF_L["Legs"], DRF_L["Feet"], DRF_L["MainHand"], DRF_L["OffHand"] };
+
+	-- Slot ID table - with LUA quirks this somehow works, may not be future proof? Well it works now, so, whatever!
+	local SlotIDs = { GetInventorySlotInfo("HeadSlot"), GetInventorySlotInfo("ShoulderSlot"), GetInventorySlotInfo("BackSlot"),
+		GetInventorySlotInfo("ChestSlot"), GetInventorySlotInfo("ShirtSlot"), GetInventorySlotInfo("TabardSlot"), 
+		GetInventorySlotInfo("WristSlot"), GetInventorySlotInfo("HandsSlot"), GetInventorySlotInfo("WaistSlot"),
+		GetInventorySlotInfo("LegsSlot"), GetInventorySlotInfo("FeetSlot"), GetInventorySlotInfo("MainHandSlot"),
+		GetInventorySlotInfo("SecondaryHandSlot") };
+
+	-- Iterate the Language table for each slot, and then print out its link. Oooh the magic!
+	SysMessage(DRF_L["Links"]..":");
+	for i,v in ipairs(LanguageRefs) do
+		local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
+		if ( myItemLink ~= nil ) then
+			SysMessage(v..": "..myItemLink);
+		end
+	end
 end
 
 function OpenDressingRoom()
