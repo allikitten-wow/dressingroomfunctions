@@ -73,6 +73,7 @@ function DRF_DoUndress(NoTimer)
 	-- for people who play a character gender that they'd rather not see with only
 	-- the "bare necessities" all the time. And besides, most male characters have
 	-- really ugly underwear, anyhow!
+	-- EDIT: Well, the underwear really improved a LOT in Warlords with the new models. Kudos, Blizzard!
 
 	if ( DRF_Global["Conservative"] ) then
 		-- White Tuxedo Shirt
@@ -110,7 +111,10 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 
 	if ( UnitIsPlayer("target") ) then
 		DressUpModel:SetUnit("target");
+		DRF_DumpItemLinks(true); -- Precache item links
 		DRF_LastGender = UnitSex("target");
+		DRF_LastRace = select(2,UnitRace("target"));
+		DRF_LastName = UnitName("target");
 		SetDressUpBackground(DressUpFrame, fileName);
 		if ( DRF_DebugMode == false ) then
 			DressUpModel:SetPortraitZoom(0.8);
@@ -120,6 +124,8 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 		race, fileName = UnitRace("player");
 		DressUpModel:SetUnit("player");
 		DRF_LastGender = UnitSex("player");
+		DRF_LastRace = select(2,UnitRace("player"));
+		DRF_LastName = UnitName("player");
 		SetDressUpBackground(DressUpFrame, fileName);
 		if ( DRF_DebugMode == false ) then
 			DressUpModel:SetPortraitZoom(0.8);
@@ -143,6 +149,7 @@ local function DRF_SetArbitraryRace(id,gender)
 	if ( gender == 0 or gender == 1 ) then
 		DressUpModel:SetCustomRace(id,gender);
 		DRF_LastGender = 2 + gender;
+		DRF_LastRace = _backgroundList[id];
 		if ( DRF_Global["UndressTarget"] ) then
 			DRF_DoUndress();
 		end
@@ -376,6 +383,8 @@ DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 	if ( DRF_DebugMode == false ) then
 		DressUpModel:SetUnit("player");
 		DRF_LastGender = UnitSex("player");
+		DRF_LastRace = select(2,UnitRace("player"));
+		DRF_LastName = UnitName("player");
 	end
 	DressUpModel:Dress();
 	if ( DRF_DebugMode == false ) then
