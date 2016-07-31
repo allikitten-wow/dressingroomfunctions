@@ -1,6 +1,6 @@
 ﻿--
 --	Dressing Room Functions - Allows undress and target model for dressing room
---	Copyright (C) 2014  Rachael Alexanderson
+--	Copyright (C) 2016  Rachael Alexanderson
 --
 --	This program is free software: you can redistribute it and/or modify
 --	it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ DRF.config.s3 = "UndressTarget";
 	DRF_L["Remove"] = "Remove";
 	DRF_L["Options"] = "Options";
 	DRF_L["None"] = "None";
+	DRF_L["Links"] = "Item Links"; -- New for Legion Pre-Patch
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -50,6 +51,7 @@ DRF.config.s3 = "UndressTarget";
 	DRF_L["M_Alliance"] = "- Alliance -";
 	DRF_L["M_Horde"] = "- Horde -";
 	DRF_L["M_Neutral"] = "- Neutral -";
+	DRF_L["M_Dump"] = "- Dump -"; -- New for Legion Pre-Patch
 
 	DRF_L["C_Help"] = "help";
 
