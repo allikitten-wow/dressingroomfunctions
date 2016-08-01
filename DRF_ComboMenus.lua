@@ -207,6 +207,12 @@ local function DRF_menuDumpItemLinks_OnClick(self, arg1, arg2, checked)
 	DRF_DumpItemLinks();
 end
 
+local function DRF_menuDumpMogit_OnClick(self, arg1, arg2, checked)
+	PlaySound("gsTitleOptionOK");
+	CloseDropDownMenus();
+	DRF_DumpItemLinks(false,true);
+end
+
 DRF_menu1:SetPoint("CENTER");
 --UIDropDownMenu_SetWidth(DRF_menu1, 200);
 --UIDropDownMenu_SetText(DRF_menu1, "Select Race/Gender:");
@@ -261,15 +267,6 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.menuList, info.hasArrow = 14, true;
 		UIDropDownMenu_AddButton(info, level);
 
-		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Configure"], true;
-		UIDropDownMenu_AddButton(info, level);
-		info = UIDropDownMenu_CreateInfo();
-		info.checked, info.notCheckable = false, true;
-
-		info.func = DRF_menuOptions_OnClick;
-		info.text, info.arg1 = DRF_L["Options"], 200;
-		UIDropDownMenu_AddButton(info, level);
-
 		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Dump"], true;
 		UIDropDownMenu_AddButton(info, level);
 		info = UIDropDownMenu_CreateInfo();
@@ -277,6 +274,22 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 
 		info.func = DRF_menuDumpItemLinks_OnClick;
 		info.text, info.arg1 = DRF_L["Links"], 201;
+		UIDropDownMenu_AddButton(info, level);
+
+		local mogit = select(2,GetAddOnInfo("mogit"));
+		if ( mogit ) then
+			info.func = DRF_menuDumpMogit_OnClick;
+			info.text, info.arg1 = mogit, 202;
+			UIDropDownMenu_AddButton(info, level);
+		end
+
+		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Configure"], true;
+		UIDropDownMenu_AddButton(info, level);
+		info = UIDropDownMenu_CreateInfo();
+		info.checked, info.notCheckable = false, true;
+
+		info.func = DRF_menuOptions_OnClick;
+		info.text, info.arg1 = DRF_L["Options"], 200;
 		UIDropDownMenu_AddButton(info, level);
 
 	elseif ( menuList >= 0 and menuList <= 4 ) then

@@ -140,7 +140,7 @@ function DressUpItemLink(link)
 	return true;
 end
 
-function DRF_DumpItemLinks(precacheOnly)
+function DRF_DumpItemLinks(precacheOnly, mogit)
 	-- Reference Table - created with user's language
 	local LanguageRefs = { DRF_L["Head"], DRF_L["Shoulder"], DRF_L["Back"], DRF_L["Chest"], DRF_L["Shirt"], DRF_L["Tabard"],
 		DRF_L["Wrist"], DRF_L["Hands"], DRF_L["Waist"], DRF_L["Legs"], DRF_L["Feet"], DRF_L["MainHand"], DRF_L["OffHand"] };
@@ -153,23 +153,39 @@ function DRF_DumpItemLinks(precacheOnly)
 		GetInventorySlotInfo("SecondaryHandSlot") };
 
 	-- Iterate the Language table for each slot, and then print out its link. Oooh the magic!
-	if ( precacheOnly ~= true ) then
-		local GenderMessage;
-		local RaceMessage;
-		-- Localize the player's gender and race
-		if ( DRF_LastGender == 2 ) then 
-			GenderMessage = MALE;
-			RaceMessage = DRF_L[DRF_LastRace.."M"];
-		else
-			GenderMessage = FEMALE;
-			RaceMessage = DRF_L[DRF_LastRace.."F"];
+	if ( mogit ~= true ) then
+		if ( precacheOnly ~= true ) then
+			local GenderMessage;
+			local RaceMessage;
+			-- Localize the player's gender and race
+			if ( DRF_LastGender == 2 ) then 
+				GenderMessage = MALE;
+				RaceMessage = DRF_L[DRF_LastRace.."M"];
+			else
+				GenderMessage = FEMALE;
+				RaceMessage = DRF_L[DRF_LastRace.."F"];
+			end
+			SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
 		end
-		SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
-	end
-	for i,v in ipairs(LanguageRefs) do
-		local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
-		if ( myItemLink ~= nil ) then
-			if ( precacheOnly ~= true ) then SysMessage(v..": "..myItemLink); end
+		for i,v in ipairs(LanguageRefs) do
+			local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
+			if ( myItemLink ~= nil ) then
+				if ( precacheOnly ~= true ) then SysMessage(v..": "..myItemLink); end
+			end
+		end
+	else
+		local mog=_G["MogIt"];
+		local preview = mog:GetPreview();
+		preview.data.displayRace = _raceList[DRF_LastRace];
+		preview.data.displayGender = DRF_LastGender - 2;
+		preview.data.weaponEnchant = 0;
+		preview.model:ResetModel();
+		preview.model:Undress();
+		for i,v in ipairs(LanguageRefs) do
+			local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
+			if ( myItemLink ~= nil ) then	
+				mog:AddToPreview(myItemLink, preview);
+			end
 		end
 	end
 end
@@ -198,6 +214,11 @@ end
 SLASH_OPENDR1, SLASH_OPENDR2 = '/dressingroom', '/dr';
 function SlashCmdList.OPENDR(msg, editBox)
 	OpenDressingRoom();
+end
+
+-- Debugging function for mogit. Decodes race, gender, etc, from a chat link.
+function DRF_DebugMogit(arg)
+	return _G["MogIt"]:LinkToSet(arg);
 end
 
 -- Global Precache. This 'should' ensure certain items (used by this addon) are always loaded.
