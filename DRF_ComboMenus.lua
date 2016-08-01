@@ -147,6 +147,8 @@ DRF_button3.text:SetText(DRF_L["ButtonMore"]);
 local function DRF_SetArbitraryRace(id,gender)
 	DRF_LastQueuedItem = nil;
 	if ( gender == 0 or gender == 1 ) then
+		local OriginalHelmet = DressUpModel:GetSlotTransmogSources(GetInventorySlotInfo("HeadSlot")); -- To Replace the Helmet
+		local OriginalShoulder = DressUpModel:GetSlotTransmogSources(GetInventorySlotInfo("ShoulderSlot")); -- To Replace the Shoulder
 		DressUpModel:SetCustomRace(id,gender);
 		DRF_LastGender = 2 + gender;
 		DRF_LastRace = _backgroundList[id];
@@ -156,9 +158,14 @@ local function DRF_SetArbitraryRace(id,gender)
 		-- Puts a helmet on the character, to fix a bug using hidden helmets.
 		-- This chosen helmet is somewhat invisible, it's a holiday reward from
 		-- the midsummer fire festival.
+		-- 2016/8/1 - Do the same thing for shoulders (since they can be hidden now)
 		if ( DRF_DebugMode == false ) then
-			DressUpModel:TryOn(select(2,GetItemInfo(23323)));
-			DressUpModel:UndressSlot(GetInventorySlotInfo("HeadSlot"));
+			DressUpModel:TryOn(select(2,GetItemInfo(23323))); -- Put on temporary helmet
+			DressUpModel:UndressSlot(GetInventorySlotInfo("HeadSlot")); -- Remove temporary helmet
+			if ( OriginalHelmet ~= 0 ) then DressUpModel:TryOn(OriginalHelmet); end -- Replace helmet if model was wearing one
+			DressUpModel:TryOn(select(2,GetItemInfo(4314))); -- Put on temporary shoulder
+			DressUpModel:UndressSlot(GetInventorySlotInfo("ShoulderSlot")); -- Remove temporary shoulder
+			if ( OriginalShoulder ~= 0 ) then DressUpModel:TryOn(OriginalShoulder); end -- Replace shoulder if model was wearing one
 			DressUpModel:SetPortraitZoom(0.8);
 			Model_Reset(DressUpModel);
 		end
