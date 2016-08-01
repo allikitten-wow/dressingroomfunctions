@@ -140,7 +140,7 @@ function DressUpItemLink(link)
 	return true;
 end
 
-function DRF_DumpItemLinks(precacheOnly, mogit)
+function DRF_DumpItemLinks(dest)
 	-- Reference Table - created with user's language
 	local LanguageRefs = { DRF_L["Head"], DRF_L["Shoulder"], DRF_L["Back"], DRF_L["Chest"], DRF_L["Shirt"], DRF_L["Tabard"],
 		DRF_L["Wrist"], DRF_L["Hands"], DRF_L["Waist"], DRF_L["Legs"], DRF_L["Feet"], DRF_L["MainHand"], DRF_L["OffHand"] };
@@ -152,38 +152,58 @@ function DRF_DumpItemLinks(precacheOnly, mogit)
 		GetInventorySlotInfo("LegsSlot"), GetInventorySlotInfo("FeetSlot"), GetInventorySlotInfo("MainHandSlot"),
 		GetInventorySlotInfo("SecondaryHandSlot") };
 
-	-- Iterate the Language table for each slot, and then print out its link. Oooh the magic!
-	if ( mogit ~= true ) then
-		if ( precacheOnly ~= true ) then
-			local GenderMessage;
-			local RaceMessage;
-			-- Localize the player's gender and race
-			if ( DRF_LastGender == 2 ) then 
-				GenderMessage = MALE;
-				RaceMessage = DRF_L[DRF_LastRace.."M"];
-			else
-				GenderMessage = FEMALE;
-				RaceMessage = DRF_L[DRF_LastRace.."F"];
-			end
-			SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
+	local mog, preview; -- MogIt support
+
+	-- Iterate the Language table for each slot, and then print out its link.
+	if ( dest == "chat" ) then
+		local GenderMessage;
+		local RaceMessage;
+		-- Localize the player's gender and race
+		if ( DRF_LastGender == 2 ) then 
+			GenderMessage = MALE;
+			RaceMessage = DRF_L[DRF_LastRace.."M"];
+		else
+			GenderMessage = FEMALE;
+			RaceMessage = DRF_L[DRF_LastRace.."F"];
 		end
-		for i,v in ipairs(LanguageRefs) do
-			local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
-			if ( myItemLink ~= nil ) then
-				if ( precacheOnly ~= true ) then SysMessage(v..": "..myItemLink); end
-			end
-		end
-	else
-		local mog=_G["MogIt"];
-		local preview = mog:GetPreview();
+		-- Show the player's name and physical info. We're not 100% certain on this, but we're going by data we have.
+		SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
+	elseif ( dest == "mogit" ) then
+		-- This uses some modified code from MogIt. (Used with permission)
+		-- It initializes a preview window and sets the player race as if coming from a [MogIt] link.
+
+		-- This will access the MogIt addon's private namespace
+		mog=_G["MogIt"];
+
+		-- Get an available preview window. By default, MogIt will create a new one, depending on the user's settings.
+		preview = mog:GetPreview();
+
+		-- Set the preview window's race and gender to match DRF's, even if DRF's target is a player other than the user.
 		preview.data.displayRace = _raceList[DRF_LastRace];
 		preview.data.displayGender = DRF_LastGender - 2;
+
+		-- Hacks. Because without which, for whatever reason, it just doesn't work.
+		if ( DRF_LastRace == "Worgen" ) then
+			preview.data.displayRace = 22;
+		elseif ( DRF_LastRace == "Pandaren" ) then
+			preview.data.displayRace = 24;
+		end
+
+		-- We're not going to bother with weapon enchants. (For now) This may be implemented in the future.
 		preview.data.weaponEnchant = 0;
+
+		-- Tell MogIt to reset and initialize the preview model to the data we sent.
 		preview.model:ResetModel();
 		preview.model:Undress();
-		for i,v in ipairs(LanguageRefs) do
-			local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
-			if ( myItemLink ~= nil ) then	
+	end
+	for i,v in ipairs(LanguageRefs) do
+		local myItemLink = select(6,C_TransmogCollection.GetAppearanceSourceInfo(DressUpModel:GetSlotTransmogSources(SlotIDs[i])));
+		if ( myItemLink ~= nil ) then
+			if ( dest == "chat" ) then
+				-- Links the item in the chat window.
+				SysMessage(v..": "..myItemLink);
+			elseif ( dest == "mogit" ) then
+				-- Links the item directly to MogIt's latest preview window.
 				mog:AddToPreview(myItemLink, preview);
 			end
 		end
@@ -203,7 +223,7 @@ function OpenDressingRoom()
 		DRF_LastGender = UnitSex("player");
 		DRF_LastRace = select(2,UnitRace("player"));
 		DRF_LastName = UnitName("player");
-		DRF_DumpItemLinks(true); -- Precache item links
+		DRF_DumpItemLinks("precache"); -- Precache item links
 		if ( DRF_Global["AutoUndress"] ) then
 			DRF_DoUndress(1);
 		end

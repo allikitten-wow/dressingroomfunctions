@@ -111,7 +111,7 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 
 	if ( UnitIsPlayer("target") ) then
 		DressUpModel:SetUnit("target");
-		DRF_DumpItemLinks(true); -- Precache item links
+		DRF_DumpItemLinks("precache"); -- Precache item links
 		DRF_LastGender = UnitSex("target");
 		DRF_LastRace = select(2,UnitRace("target"));
 		DRF_LastName = UnitName("target");
@@ -204,13 +204,13 @@ end
 local function DRF_menuDumpItemLinks_OnClick(self, arg1, arg2, checked)
 	PlaySound("gsTitleOptionOK");
 	CloseDropDownMenus();
-	DRF_DumpItemLinks();
+	DRF_DumpItemLinks("chat");
 end
 
 local function DRF_menuDumpMogit_OnClick(self, arg1, arg2, checked)
 	PlaySound("gsTitleOptionOK");
 	CloseDropDownMenus();
-	DRF_DumpItemLinks(false,true);
+	DRF_DumpItemLinks("mogit");
 end
 
 DRF_menu1:SetPoint("CENTER");
