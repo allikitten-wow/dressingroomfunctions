@@ -247,3 +247,4 @@ preCache = GetItemInfo(23323);
 preCache = GetItemInfo(6833);
 preCache = GetItemInfo(6835);
 preCache = GetItemInfo(55726);
+preCache = GetItemInfo(4314);
