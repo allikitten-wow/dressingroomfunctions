@@ -412,6 +412,8 @@ DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 		Model_Reset(DressUpModel);
 	end
 
+	DRF_DumpItemLinks("precache"); -- Precache item links
+
 	SetDressUpBackground(DressUpFrame, fileName);
 	PlaySound("gsTitleOptionOK");
 end);

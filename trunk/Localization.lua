@@ -151,6 +151,7 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["Remove"] = "設置";
 	DRF_L["Options"] = "選項";
 	DRF_L["None"] = "無";
+	DRF_L["Links"] = "物品鏈接"; 
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
@@ -161,6 +162,7 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["M_Alliance"] = "- 聯盟 -";
 	DRF_L["M_Horde"] = "- 部落 -";
 	DRF_L["M_Neutral"] = "- 中立 -";
+	DRF_L["M_Dump"] = "- 物品列表 -";
 
 	DRF_L["C_Help"] = "help";
 
