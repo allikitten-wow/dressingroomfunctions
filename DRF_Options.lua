@@ -36,6 +36,7 @@ if DRF_Global == nil then DRF_Global = {} end;
 if DRF_Global[DRF.config.s1] == nil then DRF_Global[DRF.config.s1] = false; end
 if DRF_Global[DRF.config.s2] == nil then DRF_Global[DRF.config.s2] = false; end
 if DRF_Global[DRF.config.s3] == nil then DRF_Global[DRF.config.s3] = false; end
+if DRF_Global[DRF.config.s4] == nil then DRF_Global[DRF.config.s4] = false; end
 
 DRF.panel = CreateFrame( "Frame", "DRFPanel", UIParent );
 
@@ -76,6 +77,15 @@ DRF.panel.option3:SetScript("OnClick",function(self,event,arg1)
 	SysMessage(DRF.change.s3..englishOnOff(DRF_Global[DRF.config.s3])..".");
 end);
 
+DRF.panel.option4 = CreateFrame("CheckButton", "DRFOption4", DRF.panel, "UICheckButtonTemplate");
+DRF.panel.option4:SetPoint("CENTER",-190,-45);
+DRF.panel.option4.text = _G["DRFOption4Text"];
+DRF.panel.option4.text:SetText(DRF.text.s4);
+DRF.panel.option4:SetScript("OnClick",function(self,event,arg1)
+	DRF_Global[DRF.config.s4] = self:GetChecked()
+	SysMessage(DRF.change.s4..englishOnOff(DRF_Global[DRF.config.s4])..".");
+end);
+
 local function SetOptionsPanel()
 	if ( DRF_Global[DRF.config.s1] ) then
 		DRF.panel.option1:SetChecked(true); else
@@ -89,6 +99,10 @@ local function SetOptionsPanel()
 		DRF.panel.option3:SetChecked(true); else
 		DRF.panel.option3:SetChecked(false); end
 	DRF_Option3 = DRF_Global[DRF.config.s3];
+	if ( DRF_Global[DRF.config.s4] ) then
+		DRF.panel.option4:SetChecked(true); else
+		DRF.panel.option4:SetChecked(false); end
+	DRF_Option4 = DRF_Global[DRF.config.s4];
 end
 
 local function DRF_Cancel()
@@ -96,9 +110,11 @@ local function DRF_Cancel()
 	if ( DRF_Global[DRF.config.s1] ~= DRF_Option1 ) then didchange = true; end
 	if ( DRF_Global[DRF.config.s2] ~= DRF_Option2 ) then didchange = true; end
 	if ( DRF_Global[DRF.config.s3] ~= DRF_Option3 ) then didchange = true; end
+	if ( DRF_Global[DRF.config.s4] ~= DRF_Option4 ) then didchange = true; end
 	DRF_Global[DRF.config.s1] = DRF_Option1;
 	DRF_Global[DRF.config.s2] = DRF_Option2;
 	DRF_Global[DRF.config.s3] = DRF_Option3;
+	DRF_Global[DRF.config.s4] = DRF_Option4;
 	if didchange then
 		SysMessage(DRF_L["S_Cancel"]);
 	end
@@ -130,6 +146,7 @@ function SlashCmdList.DRF(msg, editbox)
 		SysMessage(DRF_L["S_Help1"]);
 		SysMessage(DRF_L["S_Help2"]);
 		SysMessage(DRF_L["S_Help3"]);
+		SysMessage(DRF_L["S_Help4"]);
 	elseif command == string.lower(DRF.config.s1) or command == string.lower(DRF.alias.s1) then
 		DRF_Global[DRF.config.s1] = parseSwitch(rest,DRF_Global[DRF.config.s1]);
 		SysMessage(DRF.change.s1..englishOnOff(DRF_Global[DRF.config.s1])..".");
@@ -141,6 +158,10 @@ function SlashCmdList.DRF(msg, editbox)
 	elseif command == string.lower(DRF.config.s3) or command == string.lower(DRF.alias.s3) then
 		DRF_Global[DRF.config.s3] = parseSwitch(rest,DRF_Global[DRF.config.s3]);
 		SysMessage(DRF.change.s3..englishOnOff(DRF_Global[DRF.config.s3])..".");
+		SetOptionsPanel();
+	elseif command == string.lower(DRF.config.s4) or command == string.lower(DRF.alias.s4) then
+		DRF_Global[DRF.config.s4] = parseSwitch(rest,DRF_Global[DRF.config.s4]);
+		SysMessage(DRF.change.s4..englishOnOff(DRF_Global[DRF.config.s4])..".");
 		SetOptionsPanel();
 	elseif command == "" then
 		InterfaceOptionsFrame_OpenToCategory(DRF.panel);
