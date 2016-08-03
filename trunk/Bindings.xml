@@ -1,10 +1,5 @@
 <Bindings>
-	<Binding name="OPENDRESSINGROOM" header="DRF">
+	<Binding name="OPENDRESSINGROOM" header="DRF" category="ADDONS" default="F6">
 		OpenDressingRoom();
-	</Binding>
-	<Binding name="OPENDRFOPTIONS">
-		PlaySound("gsTitleOptionOK");
-		InterfaceOptionsFrame_OpenToCategory(DRF.panel);
-		CloseDropDownMenus();
 	</Binding>
 </Bindings>

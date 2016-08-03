@@ -18,24 +18,7 @@
 
 ## Interface: 70000
 ## Title: Dressing Room Functions
-## Title-enUS: Dressing Room Functions
-## Title-enGB: Dressing Room Functions
-## Title-zhCN: 试衣间增强
-## Title-zhTW: 試衣間增強
-## Title-enCN: 试衣间增强
-## Title-enTW: 試衣間增強
-## Title-koKR: 드레싱 룸 기능
-## Title-ruRU: Функции гардеробной
-## Title-frFR: Fonctions de vestiaire
-## Title-deDE: Garderobe-Funktionen
-## Title-ptPT: Funções de camarim
-## Title-esES: Funciones de camerino
-## Title-itIT: Funzioni di spogliatoio
-## Title-esMX: Funciones de camerino
-## Title-ptBR: Funções de camarim
 ## Notes: This extension allows you to remove clothing from your dressing room character (useful for previewing shirts and pants under a robe) or switch to a target model (useful for seeing a character through druid forms). These functions are part of the Blizzard Programming Interface but rarely used, but can be extremely useful depending on the situation.
-## Notes-enUS: This extension allows you to remove clothing from your dressing room character (useful for previewing shirts and pants under a robe) or switch to a target model (useful for seeing a character through druid forms). These functions are part of the Blizzard Programming Interface but rarely used, but can be extremely useful depending on the situation.
-## Notes-enGB: This extension allows you to remove clothing from your dressing room character (useful for previewing shirts and pants under a robe) or switch to a target model (useful for seeing a character through druid forms). These functions are part of the Blizzard Programming Interface but rarely used, but can be extremely useful depending on the situation.
 ## Notes-zhCN: 试衣间增强插件，可以自动脱装与设定背景与种族模块。
 ## Notes-zhTW: 試衣間增強插件，可以自動脫裝與設定背景與種族模組。
 ## Notes-enCN: 试衣间增强插件，可以自动脱装与设定背景与种族模块。
@@ -50,7 +33,7 @@
 ## Notes-esMX: Esta extensión permite que retire la ropa de tu personaje de Camerino (útil para previsualizar las camisas y pantalones bajo una túnica) o cambiar a un modelo de destino (útil para ver a un personaje a través de formas druida). Estas funciones son parte de la interfaz de programación de Blizzard pero rara vez se utilizan, pero pueden ser muy útiles dependiendo de la situación.
 ## Notes-ptBR: Esta extensão permite que você remover a roupa de seu personagem de camarim (útil para a visualização de camisas e calças sob um manto) ou mudar para um modelo de destino (útil para ver um personagem através de formas de druid). Essas funções são parte da Interface de programação de Blizzard raramente usado, mas podem ser extremamente útil dependendo da situação.
 ## Author: Allikitten
-## Version: v1.4
+## Version: v1.4.1
 ## SavedVariables: DRF_Global
 ## SavedVariablesPerCharacter: DRF_Character
 

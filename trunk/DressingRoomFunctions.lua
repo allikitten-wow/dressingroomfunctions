@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.4";
+DRF_CoreVersion = "v1.4.1";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2016  Rachael Alexanderson
@@ -131,6 +131,11 @@ function DressUpItemLink(link)
 			DRF_LastGender = UnitSex("player");
 			DRF_LastRace = select(2,UnitRace("player"));
 			DRF_LastName = UnitName("player");
+
+			if ( DRF_Global["OpenToTarget"] ) then
+				DRF_TargetButton:Click();
+			end
+
 			if ( DRF_Global["AutoUndress"] ) then
 				DRF_DoUndress(1);
 			end
@@ -224,9 +229,16 @@ function OpenDressingRoom()
 		DRF_LastRace = select(2,UnitRace("player"));
 		DRF_LastName = UnitName("player");
 		DRF_DumpItemLinks("precache"); -- Precache item links
+
+		if ( DRF_Global["OpenToTarget"] ) then
+			DRF_TargetButton:Click();
+		end
+
 		if ( DRF_Global["AutoUndress"] ) then
 			DRF_DoUndress(1);
 		end
+	else
+		HideUIPanel(DressUpFrame);
 	end
 end
 

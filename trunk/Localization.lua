@@ -26,6 +26,7 @@ DRF_Locale = GetLocale();
 DRF.config.s1 = "AutoUndress";
 DRF.config.s2 = "Conservative";
 DRF.config.s3 = "UndressTarget";
+DRF.config.s4 = "OpenToTarget";
 
 
 -- Hey, this is a template. Copy me and modify me for your language!
@@ -59,12 +60,15 @@ DRF.config.s3 = "UndressTarget";
 	DRF.alias.s1 = "AutoUndress";
 	DRF.alias.s2 = "Conservative";
 	DRF.alias.s3 = "UndressTarget";
+	DRF.alias.s4 = "OpenToTarget";
 	DRF.change.s1 = "Auto Undress ";
 	DRF.change.s2 = "Conservative Mode ";
 	DRF.change.s3 = "Undress Target ";
+	DRF.change.s4 = "Open To Target ";
 	DRF.text.s1 = "Undress self on open";
 	DRF.text.s2 = "Use conservative 'undress'";
 	DRF.text.s3 = "Undress on Target Change";
+	DRF.text.s4 = "Open Room To Target";
 
 	-- *** Race List - Masculine
 	DRF_L["HumanM"] = "Human";
@@ -125,6 +129,7 @@ DRF.config.s3 = "UndressTarget";
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Opening Options Frame.";
 	DRF_L["S_BadCommand"] = "Unrecognized command. Type /drf help for a list of options.";
 
@@ -229,10 +234,11 @@ if ( DRF_Locale == "zhTW" or DRF_Locale == "enTW" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "開啟選項面板。";
 	DRF_L["S_BadCommand"] = "未組織的命令。 輸入 /drf help 取得命令列表。";
 
-	DRF_L["O_Panel"] = "試衣間增強";
+	--DRF_L["O_Panel"] = "試衣間增強";
 	DRF_L["O_DRF"] = "試衣間增強"..DRF_Version.."由 AlliKitten （由 BlueNightSky 提供的翻譯） （機由必應和谷歌的翻譯）";
 end
 
@@ -331,10 +337,11 @@ if ( DRF_Locale == "zhCN" or DRF_Locale == "enCN" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "开启选项面板。";
 	DRF_L["S_BadCommand"] = "未组织的命令。 输入 /drf help 取得命令行表。";
 
-	DRF_L["O_Panel"] = "试衣间增强";
+	--DRF_L["O_Panel"] = "试衣间增强";
 	DRF_L["O_DRF"] = "试衣间增强"..DRF_Version.."由 AlliKitten （由 BlueNightSky 提供的翻译） （机由必应和谷歌的翻译）";
 end
 
@@ -434,10 +441,11 @@ if ( DRF_Locale == "itIT" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Pannello di configurazione di apertura.";
 	DRF_L["S_BadCommand"] = "Comando non riconosciuto. Digitare /drf help per un elenco di opzioni.";
 
-	DRF_L["O_Panel"] = "Funzioni Spogliatoio";
+	--DRF_L["O_Panel"] = "Funzioni Spogliatoio";
 	DRF_L["O_DRF"] = "Funzioni spogliatoio "..DRF_Version.." da Allikitten (Allicilea di US-MoonGuard) - Tradotto da Google";
 end
 
@@ -539,10 +547,11 @@ if ( DRF_Locale == "koKR" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "구성 패널의 오프닝.";
 	DRF_L["S_BadCommand"] = "명령을 인식 할 수 없습니다. 옵션 목록 /drf help 입력합니다.";
 
-	DRF_L["O_Panel"] = "更衣室功能";
+	--DRF_L["O_Panel"] = "更衣室功能";
 	DRF_L["O_DRF"] = "드레싱 룸은 구글 번역 Allikitten로 "..DRF_Version.." 프레임";
 end
 
@@ -641,10 +650,11 @@ if ( DRF_Locale == "ruRU" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Открытие панели настроек";
 	DRF_L["S_BadCommand"] = "Неизвестная команда. Введите /drf help для получения списка настроек.";
 
-	DRF_L["O_Panel"] = "Dressing Room Functions";
+	--DRF_L["O_Panel"] = "Dressing Room Functions";
 	DRF_L["O_DRF"] = "Dressing Room Functions "..DRF_Version.." по Allikitten - перевод Армун@Азурегос";
 end
 
@@ -745,10 +755,11 @@ if ( DRF_Locale == "esES" or DRF_Locale == "esMX" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Panel de configuración de apertura.";
 	DRF_L["S_BadCommand"] = "Comando no reconocido. Escriba /drf help para una lista de opciones.";
 
-	DRF_L["O_Panel"] = "Funciones Vestidor";
+	--DRF_L["O_Panel"] = "Funciones Vestidor";
 	DRF_L["O_DRF"] = "Funciones Vestidor "..DRF_Version.." por Allikitten - Traducción de Google";
 end
 
@@ -847,10 +858,11 @@ if ( DRF_Locale == "deDE" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Öffne Optionen Menu ";
 	DRF_L["S_BadCommand"] = "Unbekannter Befehl. Gebe /drf help ein für eine Liste von Optionen.";
 
-	DRF_L["O_Panel"] = "DressingRoomFuntions";
+	--DRF_L["O_Panel"] = "DressingRoomFuntions";
 	DRF_L["O_DRF"] = "DressingRoomFuntions "..DRF_Version.." von Allikitten";
 end
 
@@ -951,10 +963,11 @@ if ( DRF_Locale == "frFR" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Ouvrant le Panneau de configuration.";
 	DRF_L["S_BadCommand"] = "Commande non reconnue. Tapez /drf help pour une liste d'options.";
 
-	DRF_L["O_Panel"] = "Fonctions Dressing Room";
+	--DRF_L["O_Panel"] = "Fonctions Dressing Room";
 	DRF_L["O_DRF"] = "Fonctions Dressing Room "..DRF_Version.." par Allikitten - Traduit par Google";
 end
 
@@ -1055,15 +1068,16 @@ if ( DRF_Locale == "ptPT" or DRF_Locale == "ptBR" ) then
 	DRF_L["S_Help1"] = "/drf "..DRF.alias.s1.." [on/off] - "..DRF.text.s1;
 	DRF_L["S_Help2"] = "/drf "..DRF.alias.s2.." [on/off] - "..DRF.text.s2;
 	DRF_L["S_Help3"] = "/drf "..DRF.alias.s3.." [on/off] - "..DRF.text.s3;
+	DRF_L["S_Help4"] = "/drf "..DRF.alias.s4.." [on/off] - "..DRF.text.s4;
 	DRF_L["S_OptionsFrame"] = "Abertura Painel de Configuração.";
 	DRF_L["S_BadCommand"] = "Comando não reconhecido. Digite /drf help para uma lista de opções.";
 
-	DRF_L["O_Panel"] = "Funções Sala de Vestir";
+	--DRF_L["O_Panel"] = "Funções Sala de Vestir";
 	DRF_L["O_DRF"] = "Funções Sala de Vestir "..DRF_Version.." por Allikitten - Traduzido pelo Google";	
 end
 
 
-BINDING_HEADER_DRF = DRF_L["O_Panel"];
+BINDING_NAME_DRF = DRF_L["O_Panel"];
 BINDING_NAME_OPENDRESSINGROOM = DRESSUP_FRAME;
 BINDING_NAME_OPENDRFOPTIONS = INTERFACE_OPTIONS;
 
