@@ -283,8 +283,8 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.text, info.arg1 = DRF_L["Links"], 201;
 		UIDropDownMenu_AddButton(info, level);
 
-		local mogit = select(2,GetAddOnInfo("mogit"));
-		if ( mogit ) then
+		local mogit = select(2,GetAddOnInfo("MogIt"));
+		if ( IsAddOnLoaded("MogIt") ) then
 			info.func = DRF_menuDumpMogit_OnClick;
 			info.text, info.arg1 = mogit, 202;
 			UIDropDownMenu_AddButton(info, level);
