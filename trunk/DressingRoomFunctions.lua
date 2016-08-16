@@ -145,7 +145,8 @@ function DressUpItemLink(link)
 	return true;
 end
 
-function DRF_DumpItemLinks(dest)
+function DRF_DumpItemLinks(dest,arg1)
+	local whisperTarget;
 	-- Reference Table - created with user's language
 	local LanguageRefs = { DRF_L["Head"], DRF_L["Shoulder"], DRF_L["Back"], DRF_L["Chest"], DRF_L["Shirt"], DRF_L["Tabard"],
 		DRF_L["Wrist"], DRF_L["Hands"], DRF_L["Waist"], DRF_L["Legs"], DRF_L["Feet"], DRF_L["MainHand"], DRF_L["OffHand"] };
@@ -158,9 +159,17 @@ function DRF_DumpItemLinks(dest)
 		GetInventorySlotInfo("SecondaryHandSlot") };
 
 	local mog, preview; -- MogIt support
-
+	if ( arg1 == "target" ) then
+		whisperTarget = GetUnitName("target",true);
+	else
+		whisperTarget = arg1;
+	end
+	if ( arg1 == nil and dest == "whisper" ) then
+		SysMessage(DRF_L["InvalidTarget"]);
+		return;
+	end
 	-- Iterate the Language table for each slot, and then print out its link.
-	if ( dest == "chat" ) then
+	if ( dest == "chat" or dest == "whisper" ) then
 		local GenderMessage;
 		local RaceMessage;
 		-- Localize the player's gender and race
@@ -172,7 +181,11 @@ function DRF_DumpItemLinks(dest)
 			RaceMessage = DRF_L[DRF_LastRace.."F"];
 		end
 		-- Show the player's name and physical info. We're not 100% certain on this, but we're going by data we have.
-		SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
+		if ( dest == "chat" ) then
+			SysMessage(DRF_L["Links"].." (|cffff9090"..DRF_LastName.."|r - |cffff90ff"..GenderMessage.." |cff90ff90"..RaceMessage.."|r):");
+		elseif ( dest == "whisper" ) then
+			SendChatMessage("<DressingRoomFunctions> ("..DRF_LastName.." - "..GenderMessage.." "..RaceMessage.."):","WHISPER","",whisperTarget);
+		end
 	elseif ( dest == "mogit" ) then
 		-- This uses some modified code from MogIt. (Used with permission)
 		-- It initializes a preview window and sets the player race as if coming from a [MogIt] link.
@@ -207,6 +220,9 @@ function DRF_DumpItemLinks(dest)
 			if ( dest == "chat" ) then
 				-- Links the item in the chat window.
 				SysMessage(v..": "..myItemLink);
+			elseif ( dest == "whisper" ) then
+				-- Links the item to the whisper target.
+				SendChatMessage(v..": "..myItemLink,"WHISPER","",whisperTarget);				
 			elseif ( dest == "mogit" ) then
 				-- Links the item directly to MogIt's latest preview window.
 				mog:AddToPreview(myItemLink, preview);

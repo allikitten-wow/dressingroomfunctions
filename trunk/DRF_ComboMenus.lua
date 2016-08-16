@@ -20,6 +20,39 @@ if not ( DRF_Version == DRF_CoreVersion ) then
 	return;
 end
 
+-- Popup Box for Whisper
+local editboxtext;
+StaticPopupDialogs["DRF_WhisperTarget"] = {
+	text = DRF_L["WhisperTarget"],
+	button1 = DRF_L["Whisper"],
+	button2 = DRF_L["Cancel"],
+	button3 = DRF_L["Target"],
+	hasEditBox = 1,
+	whileDead = 1,
+	hideOnEscape = 1,
+	timeout = 0,
+	EditBoxOnTextChanged = function (self, data)		-- careful! 'self' here points to the editbox, not the dialog
+		if (self:GetText() ~= "") then
+			self:GetParent().button1:Enable();	-- self:GetParent() is the dialog
+		else
+			self:GetParent().button1:Disable();
+		end
+	end,
+	OnShow = function(self,...)
+		self.button1:Disable();
+	end,
+	OnAccept = function(self,...)
+		editboxtext = self.editBox:GetText();
+		DRF_DumpItemLinks("whisper",editboxtext);
+	end,
+	OnCancel = function() end,
+	OnAlt = function(self,...)
+		DRF_DumpItemLinks("whisper","target");
+	end,
+	enterClicksFirstButton = 1,
+	preferredIndex = 3,	-- avoid some UI taint
+}
+
 -- Use No-Taint library - I know this looks weird but this is the way I prefer to do it
 local UIDropDownMenu_Initialize = Lib_UIDropDownMenu_Initialize;
 local UIDropDownMenu_CreateInfo = Lib_UIDropDownMenu_CreateInfo;
@@ -214,6 +247,12 @@ local function DRF_menuDumpItemLinks_OnClick(self, arg1, arg2, checked)
 	DRF_DumpItemLinks("chat");
 end
 
+local function DRF_menuDumpWhisper_OnClick(self, arg1, arg2, checked)
+	PlaySound("gsTitleOptionOK");
+	CloseDropDownMenus();
+	StaticPopup_Show("DRF_WhisperTarget");
+end
+
 local function DRF_menuDumpMogit_OnClick(self, arg1, arg2, checked)
 	PlaySound("gsTitleOptionOK");
 	CloseDropDownMenus();
@@ -289,6 +328,10 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 			info.text, info.arg1 = mogit, 202;
 			UIDropDownMenu_AddButton(info, level);
 		end
+
+		info.func = DRF_menuDumpWhisper_OnClick;
+		info.text, info.arg1 = DRF_L["Whisper"], 203;
+		UIDropDownMenu_AddButton(info, level);
 
 		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Configure"], true;
 		UIDropDownMenu_AddButton(info, level);

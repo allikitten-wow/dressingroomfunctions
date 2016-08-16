@@ -28,6 +28,8 @@ DRF.config.s2 = "Conservative";
 DRF.config.s3 = "UndressTarget";
 DRF.config.s4 = "OpenToTarget";
 
+DRF_L["Whisper"] = WHISPER;
+DRF_L["Cancel"] = CANCEL;
 
 -- Hey, this is a template. Copy me and modify me for your language!
 -- *** [[[ ENGLISH ]]] ***
@@ -42,6 +44,8 @@ DRF.config.s4 = "OpenToTarget";
 	DRF_L["Options"] = "Options";
 	DRF_L["None"] = "None";
 	DRF_L["Links"] = "Item Links"; -- New for Legion Pre-Patch
+	DRF_L["WhisperTarget"] = "Whisper who?";
+	DRF_L["InvalidTarget"] = "Invalid target selected";
 
 	-- *** Menu Options - these use special punctuation
 	DRF_L["ButtonMore"] = "...";
