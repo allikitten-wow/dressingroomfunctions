@@ -125,7 +125,7 @@ function DRF_DoUndress(NoTimer)
 	end
 end
 
-DRF_button1:SetPoint("Center",DressUpFrame,"TopLeft",50,-421);
+DRF_button1:SetPoint("Center",DressUpFrame,"BottomLeft",50,15);
 DRF_button1:SetSize(70,22);
 DRF_button1.text = _G["DRF_UndressButton"];
 DRF_button1.text:SetText(DRF_L["Undress"]);
