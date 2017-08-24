@@ -726,7 +726,7 @@ function Lib_UIDropDownMenuButton_OnClick(self)
 	end
 
 	if ( playSound ) then
-		--PlaySound("UChatScrollButton");
+		PlaySoundFile("UChatScrollButton");
 	end
 end
 

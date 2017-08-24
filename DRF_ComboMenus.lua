@@ -133,7 +133,7 @@ DRF_button1:SetScript("OnClick",function(self,event,arg1)
 	DRF_LastQueuedItem = nil;
 	DRF_DoUndress(1);
 	-- we're removing the "PlaySound" for now. if Blizzard wants to make this needlessly more complicated... sadface. Really, Blizzard? Come on!
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 end);
 
 DRF_button2:SetPoint("Center",DRF_UndressButton,"Center",62,0);
@@ -170,7 +170,7 @@ DRF_button2:SetScript("OnClick",function(self,event,arg1)
 	if ( DRF_Global["UndressTarget"] ) then
 		DRF_DoUndress();
 	end
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 end);
 
 DRF_button3:SetPoint("Center",DRF_TargetButton,"Center",42,0);
@@ -237,25 +237,25 @@ local function DRF_menu2_OnClick(self, arg1, arg2, checked)
 end
 
 local function DRF_menuOptions_OnClick(self, arg1, arg2, checked)
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 	InterfaceOptionsFrame_OpenToCategory(DRF.panel);
 	CloseDropDownMenus();
 end
 
 local function DRF_menuDumpItemLinks_OnClick(self, arg1, arg2, checked)
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 	CloseDropDownMenus();
 	DRF_DumpItemLinks("chat");
 end
 
 local function DRF_menuDumpWhisper_OnClick(self, arg1, arg2, checked)
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 	CloseDropDownMenus();
 	StaticPopup_Show("DRF_WhisperTarget");
 end
 
 local function DRF_menuDumpMogit_OnClick(self, arg1, arg2, checked)
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 	CloseDropDownMenus();
 	DRF_DumpItemLinks("mogit");
 end
@@ -459,7 +459,7 @@ DressUpFrameResetButton:SetScript("OnClick",function(self,event,arg1)
 	DRF_DumpItemLinks("precache"); -- Precache item links
 
 	SetDressUpBackground(DressUpFrame, fileName);
-	--PlaySound("gsTitleOptionOK");
+	PlaySoundFile("gsTitleOptionOK");
 end);
 
 
