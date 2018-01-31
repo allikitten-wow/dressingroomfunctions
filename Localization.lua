@@ -81,6 +81,9 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["GnomeM"] = "Gnome";
 	DRF_L["DraeneiM"] = "Draenei";
 	DRF_L["WorgenM"] = "Worgen";
+	DRF_L["LightforgedDraeneiM"] = "Lightforged Draenei";
+	DRF_L["VoidElfM"] = "Void Elf";
+	DRF_L["DarkIronDwarfM"] = "Dark Iron Dwarf";
 
 	DRF_L["OrcM"] = "Orc";
 	DRF_L["UndeadM"] = "Undead";
@@ -88,6 +91,9 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["TrollM"] = "Troll";
 	DRF_L["GoblinM"] = "Goblin";
 	DRF_L["BloodElfM"] = "Blood Elf";
+	DRF_L["NightborneM"] = "Nightborne";
+	DRF_L["HighmountainTaurenM"] = "Highmountain Tauren";
+	DRF_L["ZandalariTrollM"] = "Zandalari Troll";
 
 	DRF_L["PandarenM"] = "Pandaren";
 
@@ -98,6 +104,9 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["GnomeF"] = "Gnome";
 	DRF_L["DraeneiF"] = "Draenei";
 	DRF_L["WorgenF"] = "Worgen";
+	DRF_L["LightforgedDraeneiF"] = "Lightforged Draenei";
+	DRF_L["VoidElfF"] = "Void Elf";
+	DRF_L["DarkIronDwarfF"] = "Dark Iron Dwarf";
 
 	DRF_L["OrcF"] = "Orc";
 	DRF_L["UndeadF"] = "Undead";
@@ -105,6 +114,9 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["TrollF"] = "Troll";
 	DRF_L["GoblinF"] = "Goblin";
 	DRF_L["BloodElfF"] = "Blood Elf";
+	DRF_L["NightborneF"] = "Nightborne";
+	DRF_L["HighmountainTaurenF"] = "Highmountain Tauren";
+	DRF_L["ZandalariTrollF"] = "Zandalari Troll";
 
 	DRF_L["PandarenF"] = "Pandaren";
 

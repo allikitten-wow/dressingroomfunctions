@@ -75,7 +75,11 @@ local _backgroundList = {
 	[10] = "BloodElf",
 	[11] = "Draenei",
 	[22] = "Worgen",
-	[24] = "Pandaren"
+	[24] = "Pandaren",
+	[27] = "Nightborne",
+	[28] = "HighmountainTauren",
+	[29] = "VoidElf",
+	[30] = "LightforgedDraenei",
 };
 
 -- _raceList is the content-reference table for the background list.
@@ -373,6 +377,10 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = DRF_L["Worgen"..lgender], 22;
 		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = DRF_L["VoidElf"..lgender], 29;
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = DRF_L["LightforgedDraenei"..lgender], 30;
+		UIDropDownMenu_AddButton(info, level);
 
 		info.text, info.isTitle = DRF_L["M_Horde"], true;
 		UIDropDownMenu_AddButton(info, level);
@@ -390,6 +398,10 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.text, info.arg1 = DRF_L["Goblin"..lgender], 9;
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = DRF_L["BloodElf"..lgender], 10;
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = DRF_L["Nightborne"..lgender], 27;
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = DRF_L["HighmountainTauren"..lgender], 28;
 		UIDropDownMenu_AddButton(info, level);
 
 		info.text, info.isTitle = DRF_L["M_Neutral"], true;
