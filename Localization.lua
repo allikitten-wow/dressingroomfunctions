@@ -94,6 +94,7 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["NightborneM"] = "Nightborne";
 	DRF_L["HighmountainTaurenM"] = "Highmountain Tauren";
 	DRF_L["ZandalariTrollM"] = "Zandalari Troll";
+	DRF_L["MagharOrcM"] = "Mag'har Orc";
 
 	DRF_L["PandarenM"] = "Pandaren";
 
@@ -117,6 +118,7 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["NightborneF"] = "Nightborne";
 	DRF_L["HighmountainTaurenF"] = "Highmountain Tauren";
 	DRF_L["ZandalariTrollF"] = "Zandalari Troll";
+	DRF_L["MagharOrcF"] = "Mag'har Orc";
 
 	DRF_L["PandarenF"] = "Pandaren";
 
