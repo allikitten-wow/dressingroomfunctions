@@ -87,6 +87,8 @@ local _backgroundList = {
 	[28] = "HighmountainTauren",
 	[29] = "VoidElf",
 	[30] = "LightforgedDraenei",
+	[31] = "ZandalariTroll",
+	[32] = "KulTiranHuman",
 	[34] = "DarkIronDwarf",
 	[36] = "MagharOrc",
 };
@@ -392,6 +394,8 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = DRF_L["DarkIronDwarf"..lgender], 34;
 		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = DRF_L["KulTiranHuman"..lgender], 32;
+		UIDropDownMenu_AddButton(info, level);
 
 		info.text, info.isTitle = DRF_L["M_Horde"], true;
 		UIDropDownMenu_AddButton(info, level);
@@ -415,6 +419,8 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 		info.text, info.arg1 = DRF_L["HighmountainTauren"..lgender], 28;
 		UIDropDownMenu_AddButton(info, level);
 		info.text, info.arg1 = DRF_L["MagharOrc"..lgender], 36;
+		UIDropDownMenu_AddButton(info, level);
+		info.text, info.arg1 = DRF_L["ZandalariTroll"..lgender], 31;
 		UIDropDownMenu_AddButton(info, level);
 
 		info.text, info.isTitle = DRF_L["M_Neutral"], true;

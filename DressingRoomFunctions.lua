@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.5.0";
+DRF_CoreVersion = "v1.5.1";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2018  Rachael Alexanderson

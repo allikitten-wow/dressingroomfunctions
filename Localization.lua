@@ -89,6 +89,7 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["DraeneiM"] = "Draenei";
 	DRF_L["WorgenM"] = "Worgen";
 	DRF_L["LightforgedDraeneiM"] = "Lightforged Draenei";
+	DRF_L["KulTiranHumanM"] = "Kul-Tiran Human";
 	DRF_L["VoidElfM"] = "Void Elf";
 	DRF_L["DarkIronDwarfM"] = "Dark Iron Dwarf";
 
@@ -113,6 +114,7 @@ DRF_L["Cancel"] = CANCEL;
 	DRF_L["DraeneiF"] = "Draenei";
 	DRF_L["WorgenF"] = "Worgen";
 	DRF_L["LightforgedDraeneiF"] = "Lightforged Draenei";
+	DRF_L["KulTiranHumanF"] = "Kul-Tiran Human";
 	DRF_L["VoidElfF"] = "Void Elf";
 	DRF_L["DarkIronDwarfF"] = "Dark Iron Dwarf";
 
