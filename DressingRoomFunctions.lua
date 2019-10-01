@@ -1,4 +1,4 @@
-DRF_CoreVersion = "v1.5.1";
+DRF_CoreVersion = "v2.0.0";
 --
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2018  Rachael Alexanderson
@@ -24,6 +24,7 @@ DRF_CoreVersion = "v1.5.1";
 -- POSSIBILITY OF SUCH DAMAGE.
 --
 
+local DressUpModel = DressUpFrame.ModelScene:GetPlayerActor();
 
 local function SysMessage(text)
 	DEFAULT_CHAT_FRAME:AddMessage(DRF_L["S_DRF"]..text);
@@ -70,90 +71,44 @@ if not ( DRF_Version == DRF_CoreVersion ) then
 	return;
 end
 
-local function DressUpTexturePath(raceFileName)
-	-- HACK
-	if ( not raceFileName ) then
-		raceFileName = "Orc";
-	end
-	-- END HACK
-
-	return "Interface\\DressUpFrame\\DressUpBackground-"..raceFileName;
-end
-
-local function SetDressUpBackground(frame, fileName)
-	local texture = DressUpTexturePath(fileName);
-	
-	if ( frame.BGTopLeft ) then
-		frame.BGTopLeft:SetTexture(texture..1);
-	end
-	if ( frame.BGTopRight ) then
-		frame.BGTopRight:SetTexture(texture..2);
-	end
-	if ( frame.BGBottomLeft ) then
-		frame.BGBottomLeft:SetTexture(texture..3);
-	end
-	if ( frame.BGBottomRight ) then
-		frame.BGBottomRight:SetTexture(texture..4);
-	end
-end
-
 function DressUpItemLink(link)
-	if ( not link or not IsDressableItem(link) ) then
-		return false;
-	end
 	DRF_LastQueuedItem = link;
-	if ( SideDressUpFrame.parentFrame and SideDressUpFrame.parentFrame:IsShown() ) then
-		if ( not SideDressUpFrame:IsShown() or SideDressUpFrame.mode ~= "player" ) then
-			SideDressUpFrame.mode = "player";
-			SideDressUpFrame.ResetButton:Show();
-
-			local race, fileName = UnitRace("player");
-			SetDressUpBackground(SideDressUpFrame, fileName);
-
-			ShowUIPanel(SideDressUpFrame);
-			SideDressUpModel:SetUnit("player");
-
-			-- We'll worry more about this later. For now, we're just
-			-- copying a function. (Oh my god, UGH, the humanity!)
-			if ( DRF_Global["AutoUndress"] ) then
-				SideDressUpModel:Undress();
-				if ( DRF_Global["Conservative"] ) then
-					SideDressUpModel:TryOn(select(2,GetItemInfo(6833)));
-					SideDressUpModel:TryOn(select(2,GetItemInfo(6835)));
-					SideDressUpModel:TryOn(select(2,GetItemInfo(55726)));
-				end
-
-			end
+	if( link ) then 
+		if ( IsDressableItem(link) ) then
+			return DressUpVisual(link);
 		end
-		SideDressUpModel:TryOn(link);
-	else
-		if ( not DressUpFrame:IsShown() or DressUpFrame.mode ~= "player") then
-			DressUpFrame.mode = "player";
-			DressUpFrame.ResetButton:Show();
-
-			local race, fileName = UnitRace("player");
-			SetDressUpBackground(DressUpFrame, fileName);
-
-			ShowUIPanel(DressUpFrame);
-			DressUpModel:SetUnit("player");
-			DRF_LastGender = UnitSex("player");
-			DRF_LastRace = select(2,UnitRace("player"));
-			DRF_LastName = UnitName("player");
-
-			if ( DRF_Global["OpenToTarget"] ) then
-				DRF_TargetButton:Click();
-			end
-
-			if ( DRF_Global["AutoUndress"] ) then
-				DRF_DoUndress(1);
-			end
-		end
-		DressUpModel:TryOn(link);
 	end
-	return true;
+	return false;
 end
+
+
+function OnDressingRoomShow()
+	--if ( DRF_Global["AutoUndress"] ) then
+	--	SideDressUpModel:Undress();
+	--	if ( DRF_Global["Conservative"] ) then
+	--		SideDressUpModel:TryOn(select(2,GetItemInfo(6833)));
+	--		SideDressUpModel:TryOn(select(2,GetItemInfo(6835)));
+	--		SideDressUpModel:TryOn(select(2,GetItemInfo(55726)));
+	--	end
+	--end
+
+	if ( DRF_Global["OpenToTarget"] ) then
+		DRF_TargetButton:Click();
+	end
+
+	if ( DRF_Global["AutoUndress"] ) then
+		DRF_DoUndress(1);
+	end
+
+	DRF_LastGender = UnitSex("player");
+	DRF_LastRace = select(2,UnitRace("player"));
+	DRF_LastName = UnitName("player");
+end
+hooksecurefunc("DressUpFrame_Show", OnDressingRoomShow);
+
 
 function DRF_DumpItemLinks(dest,arg1)
+	DressUpModel = DressUpFrame.ModelScene:GetPlayerActor();
 	local whisperTarget;
 	-- Reference Table - created with user's language
 	local LanguageRefs = { DRF_L["Head"], DRF_L["Shoulder"], DRF_L["Back"], DRF_L["Chest"], DRF_L["Shirt"], DRF_L["Tabard"],
@@ -240,29 +195,10 @@ function DRF_DumpItemLinks(dest,arg1)
 end
 
 function OpenDressingRoom()
-	if ( not DressUpFrame:IsShown() or DressUpFrame.mode ~= "player") then
-		DressUpFrame.mode = "player";
-		DressUpFrame.ResetButton:Show();
-
-		local race, fileName = UnitRace("player");
-		SetDressUpBackground(DressUpFrame, fileName);
-
-		ShowUIPanel(DressUpFrame);
-		DressUpModel:SetUnit("player");
-		DRF_LastGender = UnitSex("player");
-		DRF_LastRace = select(2,UnitRace("player"));
-		DRF_LastName = UnitName("player");
-		DRF_DumpItemLinks("precache"); -- Precache item links
-
-		if ( DRF_Global["OpenToTarget"] ) then
-			DRF_TargetButton:Click();
-		end
-
-		if ( DRF_Global["AutoUndress"] ) then
-			DRF_DoUndress(1);
-		end
+	if (DressUpFrame:IsShown()) then
+		DressUpFrameCloseButton:Click();
 	else
-		HideUIPanel(DressUpFrame);
+		DressUpFrame_Show(DressUpFrame);
 	end
 end
 

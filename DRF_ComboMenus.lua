@@ -27,6 +27,8 @@ if not ( DRF_Version == DRF_CoreVersion ) then
 	return;
 end
 
+local DressUpModel = DressUpFrame.ModelScene:GetPlayerActor();
+
 -- Popup Box for Whisper
 local editboxtext;
 StaticPopupDialogs["DRF_WhisperTarget"] = {
@@ -112,9 +114,10 @@ local function DRF_HookedUpdate(self, delta)
 		DRF_UndressQueued = nil;
 	end
 end
-DressUpModel:HookScript("OnUpdate",DRF_HookedUpdate);
+--DressUpModel:HookScript("OnUpdate",DRF_HookedUpdate);
 
 function DRF_DoUndress(NoTimer)
+	DressUpModel = DressUpFrame.ModelScene:GetPlayerActor();
 	DressUpModel:Undress();
 	-- This function is implemented to hide the default "swim suits" for people who
 	-- do not want to see them. This would be useful with the auto-undress function
@@ -157,29 +160,22 @@ DRF_button2.text = _G["DRF_TargetButton"];
 DRF_button2.text:SetText(DRF_L["Target"]);
 DRF_button2:SetScript("OnClick",function(self,event,arg1)
 	local race, fileName = UnitRace("target");
+	DressUpModel = DressUpFrame.ModelScene:GetPlayerActor();
 
 	if ( UnitIsPlayer("target") ) then
-		DressUpModel:SetUnit("target");
+		DressUpModel:SetModelByUnit("target", false, true);
 		DRF_DumpItemLinks("precache"); -- Precache item links
 		DRF_LastGender = UnitSex("target");
 		DRF_LastRace = select(2,UnitRace("target"));
 		DRF_LastName = UnitName("target");
-		SetDressUpBackground(DressUpFrame, fileName);
-		if ( DRF_DebugMode == false ) then
-			DressUpModel:SetPortraitZoom(0.8);
-			Model_Reset(DressUpModel);
-		end
+		--SetDressUpBackground(DressUpFrame, fileName);
 	else
 		race, fileName = UnitRace("player");
-		DressUpModel:SetUnit("player");
+		DressUpModel:SetModelByUnit("player", false, true);
 		DRF_LastGender = UnitSex("player");
 		DRF_LastRace = select(2,UnitRace("player"));
 		DRF_LastName = UnitName("player");
-		SetDressUpBackground(DressUpFrame, fileName);
-		if ( DRF_DebugMode == false ) then
-			DressUpModel:SetPortraitZoom(0.8);
-			Model_Reset(DressUpModel);
-		end
+		--SetDressUpBackground(DressUpFrame, fileName);
 	end
 	DRF_LastQueuedItem = nil;
 	if ( DRF_Global["UndressTarget"] ) then
@@ -194,11 +190,12 @@ DRF_button3.text = _G["DRF_RaceButton"];
 DRF_button3.text:SetText(DRF_L["ButtonMore"]);
 
 local function DRF_SetArbitraryRace(id,gender)
+	DressUpModel = DressUpFrame.ModelScene:GetPlayerActor();
 	DRF_LastQueuedItem = nil;
 	if ( gender == 0 or gender == 1 ) then
 		local OriginalHelmet = DressUpModel:GetSlotTransmogSources(GetInventorySlotInfo("HeadSlot")); -- To Replace the Helmet
 		local OriginalShoulder = DressUpModel:GetSlotTransmogSources(GetInventorySlotInfo("ShoulderSlot")); -- To Replace the Shoulder
-		DressUpModel:SetCustomRace(id,gender);
+		DressUpModel:SetCustomRace(id, gender);
 		DRF_LastGender = 2 + gender;
 		DRF_LastRace = _backgroundList[id];
 		if ( DRF_Global["UndressTarget"] ) then
@@ -208,16 +205,17 @@ local function DRF_SetArbitraryRace(id,gender)
 		-- This chosen helmet is somewhat invisible, it's a holiday reward from
 		-- the midsummer fire festival.
 		-- 2016/8/1 - Do the same thing for shoulders (since they can be hidden now)
-		if ( DRF_DebugMode == false ) then
-			DressUpModel:TryOn(select(2,GetItemInfo(23323))); -- Put on temporary helmet
-			DressUpModel:UndressSlot(GetInventorySlotInfo("HeadSlot")); -- Remove temporary helmet
-			if ( OriginalHelmet ~= 0 ) then DressUpModel:TryOn(OriginalHelmet); end -- Replace helmet if model was wearing one
-			DressUpModel:TryOn(select(2,GetItemInfo(4314))); -- Put on temporary shoulder
-			DressUpModel:UndressSlot(GetInventorySlotInfo("ShoulderSlot")); -- Remove temporary shoulder
-			if ( OriginalShoulder ~= 0 ) then DressUpModel:TryOn(OriginalShoulder); end -- Replace shoulder if model was wearing one
-			DressUpModel:SetPortraitZoom(0.8);
-			Model_Reset(DressUpModel);
-		end
+		-- 2019/11/1 - removed, for now, since the transmog system uses a different system for this
+		--if ( DRF_DebugMode == false ) then
+		--	DressUpModel:TryOn(select(2,GetItemInfo(23323))); -- Put on temporary helmet
+		--	DressUpModel:UndressSlot(GetInventorySlotInfo("HeadSlot")); -- Remove temporary helmet
+		--	if ( OriginalHelmet ~= 0 ) then DressUpModel:TryOn(OriginalHelmet); end -- Replace helmet if model was wearing one
+		--	DressUpModel:TryOn(select(2,GetItemInfo(4314))); -- Put on temporary shoulder
+		--	DressUpModel:UndressSlot(GetInventorySlotInfo("ShoulderSlot")); -- Remove temporary shoulder
+		--	if ( OriginalShoulder ~= 0 ) then DressUpModel:TryOn(OriginalShoulder); end -- Replace shoulder if model was wearing one
+		--	DressUpModel:SetPortraitZoom(0.8);
+		--	Model_Reset(DressUpModel);
+		--end
 	elseif ( gender == 3 ) then
 		DressUpModel:SetModel("character\\".._backgroundList[id].."\\male\\".._backgroundList[id].."male.m2");
 		DRF_LastGender = 2;
@@ -284,26 +282,28 @@ UIDropDownMenu_Initialize(DRF_menu1, function(self, level, menuList)
 	if level == 1 then
 		info.checked, info.notCheckable = false, true;
 
-		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Gender"], true;
-		UIDropDownMenu_AddButton(info, level);
-		info = UIDropDownMenu_CreateInfo();
-		info.checked, info.notCheckable = false, true;
+		if ( DRF_DebugMode ) then
+			info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Gender"], true;
+			UIDropDownMenu_AddButton(info, level);
+			info = UIDropDownMenu_CreateInfo();
+			info.checked, info.notCheckable = false, true;
 
-		info.text = DRF_L["Male"];
-		info.menuList, info.hasArrow = 0, true;
-		UIDropDownMenu_AddButton(info, level);
-		info.text = DRF_L["Female"];
-		info.menuList, info.hasArrow = 1, true;
-		UIDropDownMenu_AddButton(info, level);
+			info.text = DRF_L["Male"];
+			info.menuList, info.hasArrow = 0, true;
+			UIDropDownMenu_AddButton(info, level);
+			info.text = DRF_L["Female"];
+			info.menuList, info.hasArrow = 1, true;
+			UIDropDownMenu_AddButton(info, level);
 
-		info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Other"], true;
-		UIDropDownMenu_AddButton(info, level);
-		info = UIDropDownMenu_CreateInfo();
-		info.checked, info.notCheckable = false, true;
+			info.hasArrow, info.text, info.isTitle = false, DRF_L["M_Other"], true;
+			UIDropDownMenu_AddButton(info, level);
+			info = UIDropDownMenu_CreateInfo();
+			info.checked, info.notCheckable = false, true;
 
-		info.text = DRF_L["Background"];
-		info.menuList, info.hasArrow = 2, true;
-		UIDropDownMenu_AddButton(info, level);
+			info.text = DRF_L["Background"];
+			info.menuList, info.hasArrow = 2, true;
+			UIDropDownMenu_AddButton(info, level);
+		end
 
 		if ( DRF_DebugMode ) then
 			info.hasArrow, info.text, info.isTitle = false, "- Debug -", true;

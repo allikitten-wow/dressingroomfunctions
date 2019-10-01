@@ -1,4 +1,4 @@
-﻿--
+--
 --    Dressing Room Functions - Allows undress and target model for dressing room
 --    Copyright (C) 2018  Rachael Alexanderson
 --
